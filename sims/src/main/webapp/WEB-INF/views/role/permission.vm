@@ -1,0 +1,156 @@
+<link rel="stylesheet" href="../../../css/zTree/demo.css" type="text/css">
+<link rel="stylesheet" href="../../../css/zTree/metroStyle/metroStyle.css" type="text/css">
+
+<script type="text/javascript" src="../../../js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../../js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="../../../js/layer/layer.js"></script>
+
+
+<script type="text/javascript">
+    var setting = {
+        async:{
+            enable:true
+        },
+        view : {
+            expandSpeed : "",
+            selectedMulti : false,
+            showIcon: false
+        },
+        edit : {
+            enable : false
+        },
+        data : {
+            simpleData : {
+                enable : true,
+                idKey:"id",
+                pIdKey: "parentId",
+                rootPId: 0
+            }
+        },
+        check: {
+            enable: true
+        }
+
+    };
+
+
+    function loadTree() {
+        postRequest({
+            async: true,
+            url: "/role/getAll",
+            fun: function (response) {
+                var zNodes = response;
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            }
+        });
+    }
+
+    function postRequest(request) {
+        //var d = tipMsg("loading", "加载中......", 2000);
+        var async = request.async;
+        var fun = request.fun;
+        $.ajax({
+            async: async,
+            cache: false,
+            type: 'post',
+            dataType: "json",
+            data: request.data,
+            url: request.url,
+            success: function (response) {
+                //d.remove();
+                fun(response);
+            }
+        });
+    }
+
+
+    $(document).ready(function() {
+
+        loadTree();
+    });
+
+    $(function () {
+
+        //初始化时选中已有权限，但是初始化时获取不了zTree（暂时放到后台来做）
+        /*var simpleNodes = [
+            {"id":1, "pId":0, "name":"test1"},
+            {"id":11, "pId":1, "name":"test11"},
+            {"id":12, "pId":1, "name":"test12"},
+            {"id":111, "pId":11, "name":"test111"}
+        ];*/
+
+        /* var simpleNodes = [
+             {"id":1},
+             {"id":11},
+             {"id":12},
+             {"id":111}
+         ];
+
+         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+         var nodes = treeObj.transformTozTreeNodes(simpleNodes);
+
+         for (var i=0, l=nodes.length; i < l; i++) {
+             treeObj.checkNode(nodes[i], true, true);
+         }*/
+
+
+
+
+
+        $("#perButton").bind("click",function () {
+
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+            var selectedNodes = treeObj.getSelectedNodes();
+
+            var checkedNodes = treeObj.getCheckedNodes(true);
+
+            var stringRoles = "";
+
+            checkedNodes.forEach(function(x, index, a){
+                //console.log(x + '|' + index + '|' + (a === arr));
+                stringRoles = stringRoles + x.id + ";";
+
+
+            });
+
+
+
+            $.post(
+                    "/role/checkedNodes",
+                    {"resourceIds":stringRoles},
+                    function(data,status){
+                        //alert("删除成功！");
+                    }
+            );
+
+            /*$.ajax({
+                url:'/permission/checkedNodes',
+                type:'post',
+                dataType:"json",
+                data: {"roleIds":stringRoles},
+
+                success: function(returnData){
+
+                },
+
+                error: function(){
+                    alert('网络错误,请重试...');
+                }
+            });*/
+
+        })
+    })
+
+
+
+</script>
+
+<div><input type="button" value="保存" id="perButton"></div>
+<div class="content_wrap">
+
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>

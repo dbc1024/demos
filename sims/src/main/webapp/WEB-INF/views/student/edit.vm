@@ -1,0 +1,87 @@
+<div>
+    <div>
+        信息修改
+        <form id="studentInfoForm">
+
+            <div>
+                <input type="text" name="student.name"  value="${student.name}" placeholder="姓名">
+            </div>
+
+            <div>
+                <input type="text" name="student.age"  value="${student.age}" placeholder="年龄">
+                <input type="hidden" name="student.id" value="${student.id}">
+                <input type="hidden" name="student.headImgUrl" value="${student.headImgUrl}" id="headImgUrl">
+            </div>
+        </form>
+    </div>
+
+    <div>
+        上传头像
+        <div>
+            <img src="/img/539136029e387.jpg" id="defaultImg" width="240">
+            <input type="button" id="upButton" value="上传" />
+        </div>
+        <form id="ajaxForm" action="/file/upload" method="post" enctype="multipart/form-data">
+            <div><input type="file" name="file" /></div>
+
+        </form>
+    </div>
+
+
+    <button type="button" id="submitButton">保存</button>
+
+</div>
+
+
+
+
+<script>
+
+    $(function () {
+
+    });
+
+    $("#upButton").click(function () {
+        $("#ajaxForm").ajaxSubmit(function (data) {
+            //alert("上传成功！");
+            var headImgUrl = data.data.imgUrl
+
+            $("#defaultImg").attr("src",headImgUrl);
+            $("#headImgUrl").attr("value",headImgUrl);
+        });
+        return false;
+    });
+
+
+
+
+    $('#submitButton').bind('click', function(){
+        var dataForm = $('#studentInfoForm');
+
+        $.ajax({
+            url:'/student/edit',
+            type:'post',
+            dataType:"json",
+            data: dataForm.serialize(),
+
+            success: function(returnData){
+                if (returnData.success) {
+                    alert(returnData.description);//进入代表操作成功
+                    window.location.href="/student/list";
+                    return;
+                }
+
+                alert(returnData.description);
+
+                return;
+            },
+
+            error: function(){
+                alert('网络错误,请重试...');
+            }
+        });
+
+    });
+
+
+</script>

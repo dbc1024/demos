@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 切面代理 开启-->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <!-- 静态资源访问 -->
+    <mvc:default-servlet-handler />
+    <!-- SpringMVC开启注解支持 -->
+    <mvc:annotation-driven />
+
+    <!-- 拦截器放行静态资源 ,对js,css,easyui插件等都放行，方法1 -->
+    <!-- <mvc:resources location="/js/" mapping="/js/**"/> -->
+    <!-- <mvc:resources location="/css/" mapping="/css/**"/> -->
+    <!-- <mvc:resources location="/easyui/" mapping="/easyui/**"/> -->
+    <!-- <mvc:resources location="/plugin/" mapping="/plugin/**"/> -->
+
+
+
+
+    <!-- springmvc拦截器组 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+
+            <mvc:mapping path="/**" />
+
+            <!--方法放行-->
+            <mvc:exclude-mapping path="/login/*" />
+
+            <mvc:exclude-mapping path="/getData/**" />
+
+            <!--静态资源放行，方法2-->
+            <mvc:exclude-mapping path="/css/**" />
+            <mvc:exclude-mapping path="/js/**" />
+            <mvc:exclude-mapping path="/fonts/**" />
+
+
+            <bean class="com.its.sims.controller.Interceptor.LoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 配置一个视图解析器 -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        &lt;!&ndash; private String prefix = "";前缀 &ndash;&gt;
+        <property name="prefix" value="/WEB-INF/views/" />
+        &lt;!&ndash; private String suffix = ""; 后缀 &ndash;&gt;
+        <property name="suffix" value=".jsp" />
+    </bean>-->
+
+    <!-- 必须配置上传解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为5MB -->
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>
+
+    <!--velocity模板配置-->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/views/"/>
+        <property name="configLocation" value="classpath:velocity.properties"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--VelocityLayoutViewResolver-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="suffix" value=".vm"/>
+        <property name="prefix" value=""/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="layoutUrl" value="layout/layout.vm"/>
+    </bean>
+
+</beans>

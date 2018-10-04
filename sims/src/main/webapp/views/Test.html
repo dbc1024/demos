@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-paginator.js"></script>
+
+</head>
+<body>
+
+
+<div>
+    <ul id='element' style="cursor:hand;"></ul>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        var element = $('#element');//获得数据装配的位置
+        //初始化所需数据
+        var options = {
+            bootstrapMajorVersion:3,//版本号。3代表的是第三版本
+            alignment:"andright",//设置控件的对齐方式，是个字符串， 允许的值用： left, center andright. 即：左对齐、居中对齐、右对齐。
+            size:"normal",//设置控件的显示大小，是个字符串. 允许的值: mini, small, normal,large。值：mini版的、小号的、正常的、大号的。
+
+            currentPage:4, //当前页数
+            numberOfPages:5, //显示页码数标个数
+            totalPages:21, //总共的数据所需要的总页数
+
+            itemTexts: function (type, page, current) {
+                //图标的更改显示可以在这里修改。
+                switch (type) {
+                    case "first":
+                        return "<<";
+                    case "prev":
+                        return "<";
+                    case "next":
+                        return ">";
+                    case "last":
+                        return ">>";
+                    case "page":
+                        return  page;
+                }
+            },
+            tooltipTitles: function (type, page, current) {
+                //如果想要去掉页码数字上面的预览功能，则在此操作。例如：可以直接return。
+                switch (type) {
+                    case "first":
+                        return "Go to first page";
+                    case "prev":
+                        return "Go to previous page";
+                    case "next":
+                        return "Go to next page";
+                    case "last":
+                        return "Go to last page";
+                    case "page":
+                        return (page === current) ? "Current page is " + page : "Go to page " + page;
+                }
+            },
+            onPageClicked: function (e, originalEvent, type, page) {
+                //单击当前页码触发的事件。若需要与后台发生交互事件可在此通过ajax操作。page为目标页数。
+                console.log(e);
+                console.log(originalEvent);
+                console.log(type);
+                console.log(page);
+            }
+        };
+
+        element.bootstrapPaginator(options);	//进行初始化
+    });
+
+</script>
+</body>
+</html>

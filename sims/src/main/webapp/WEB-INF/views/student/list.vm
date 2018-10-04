@@ -1,0 +1,45 @@
+<div>${students[0].name}</div>
+
+<div>
+    <table>
+        <thead>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>班级</th>
+            <th>家庭住址</th>
+            <th>紧急联系人</th>
+            <th>紧急联系人电话</th>
+            <th>操作</th>
+        </thead>
+
+        <tbody>
+            #foreach($student in $students)
+            <tr>
+                <td>$student.name</td>
+                <td>$student.gender</td>
+                <td>$student.age</td>
+                <td>${student.grade}-$student.classes</td>
+                <td>$student.address</td>
+                <td>$student.emergencyContact</td>
+                <td>$student.emergencyContactPhone</td>
+                <td>【<a href="/student/edit/${student.id}">修改</a>】</td>
+
+            </tr>
+
+            #end
+        </tbody>
+
+
+
+
+    </table>
+    <a href="/student/downloadExcel?page=1&pagesize=7">下载数据</a>
+    <div>导入学生信息</div>
+    <form action="/student/importExcel" method="post" enctype="multipart/form-data">
+        <div><input type="file" name="file" /></div>
+        <input type="submit" value="开始导入">
+    </form>
+
+
+</div>

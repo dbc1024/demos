@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/jquery-form.js"></script>
+</head>
+<body>
+<div>header</div>
+<div>
+    $screen_content
+</div>
+<div style="margin-top: 50px;">footer</div>
+</body>
+
+</html>

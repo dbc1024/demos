@@ -1,0 +1,40 @@
+<div>
+    <img src="${student.headImgUrl}" width="100">
+    <a href="/file/download?fileName=41ec7b5e-5043-45b7-bb2a-15f440f343fbQQ图片20170828173513.jpg">下载头像</a>
+</div>
+
+<table border="1">
+    <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>家庭住址</th>
+        <th>操作</th>
+    </tr>
+    <tr>
+        <td>${student.name}</td>
+        <td>${student.age}</td>
+        <td>${student.address}</td>
+        <td><a href="/student/edit/${student.id}">修改</a></td>
+
+    </tr>
+</table>
+
+
+#*
+
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            type: "post",
+            url: "/student/getStudentJson.do",
+            data: {},
+            dataType:"json",
+            success: function(data){
+//                    console.debug(data);
+                $("#stu").val("data")
+
+
+            }
+        });
+    })
+</script>*#

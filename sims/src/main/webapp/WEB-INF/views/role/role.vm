@@ -1,0 +1,303 @@
+<link rel="stylesheet" href="../../../css/zTree/demo.css" type="text/css">
+<link rel="stylesheet" href="../../../css/zTree/metroStyle/metroStyle.css" type="text/css">
+
+<script type="text/javascript" src="../../../js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../../js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="../../../js/layer/layer.js"></script>
+
+
+<div>
+    【<a href="javascript:void(0)" type="button" onclick="roleAdd()">添加</a>】
+</div>
+
+<div>
+    <table border="0" cellspacing="1">
+        <thead>
+            <th>角色名称</th>
+            <th>操作</th>
+        </thead>
+
+        <tbody>
+        #foreach($role in $roles)
+
+            <tr>
+                <td>${role.name}</td>
+                <td>【<a href="javascript:void(0)" onclick="roleEdit(this)"
+                        data-role="${role}"
+                        data-id="${role.id}"
+                        data-name="${role.name}"
+                        >修改</a>】
+
+                    【<a href="javascript:void(0)" onclick="permissionEdit(this)"
+                        data-id="${role.id}"
+                        data-name="${role.name}"
+                        >权限分配</a>】
+
+                </td>
+            </tr>
+
+        #end
+        </tbody>
+    </table>
+</div>
+
+
+#*<div id="roleDiv" style="display: none">
+    <form action="" id="roleForm">
+        <input type="hidden" name="id" value="">
+
+
+        <div>角色名称：<input type="text" name="name" value=""></div>
+
+    </form>
+</div>*#
+
+<script type="text/javascript">
+
+    var setting = {
+        async:{
+            enable:true
+        },
+        view : {
+            expandSpeed : "",
+            selectedMulti : false,
+            showIcon: false
+        },
+        edit : {
+            enable : false
+        },
+        data : {
+            simpleData : {
+                enable : true,
+                idKey:"id",
+                pIdKey: "parentId",
+                rootPId: 0
+            }
+        },
+        check: {
+            enable: true
+        }
+
+    };
+
+
+    function loadTree(roleId) {
+        postRequest({
+            async: true,
+            url: "/role/getAll",
+            data:{"roleId":roleId},
+            fun: function (response) {
+                var zNodes = response;
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            }
+        });
+    }
+
+    function postRequest(request) {
+        //var d = tipMsg("loading", "加载中......", 2000);
+        var async = request.async;
+        var fun = request.fun;
+        $.ajax({
+            async: async,
+            cache: false,
+            type: 'post',
+            dataType: "json",
+            data: request.data,
+            url: request.url,
+            success: function (response) {
+                //d.remove();
+                fun(response);
+            }
+        });
+    }
+
+
+//    $(document).ready(function() {
+//
+//        loadTree();
+//    });
+
+    /*$(function () {
+
+        $("#perButton").bind("click",function () {
+
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+            var selectedNodes = treeObj.getSelectedNodes();
+
+            var checkedNodes = treeObj.getCheckedNodes(true);
+
+            var stringRoles = "";
+
+            checkedNodes.forEach(function(x, index, a){
+                stringRoles = stringRoles + x.id + ";";
+            });
+
+            $.post(
+                    "/role/checkedNodes",
+                    {"resourceIds":stringRoles},
+                    function(data,status){
+
+                    }
+            );
+
+        })
+    })*/
+
+
+
+    //角色信息编辑
+    function roleEdit(a){
+        var role = $(a).data("role");//能获取对象
+        //var roleId = role["id"];//无法获取对象属性
+        //var roleId = role.id;//无法获取对象属性
+
+        var roleId = $(a).data("id");
+        var roleName = $(a).data("name");
+
+
+        /*var form = $("#roleDiv");
+        form.find("[name='id']").attr("value",roleId);
+        form.find("[name='name']").attr("value",roleName);
+
+
+        var html = $("#roleDiv").html();*/
+
+        var html ='<div >'+
+                '<form action="" id="roleForm">'+
+                '<input type="hidden" name="id" value="'+ roleId +'">'+
+
+                '<div>资源名称：<input type="text" name="name" value="'+ roleName +'"></div>'+
+
+                '</form>'+
+                '</div>'
+
+        layer.open({
+            type:1,
+            title: ['编辑', 'background:#666666;color:#fff;font-size:24px;text-align:center;'],
+            content:html,
+            area: ['600px', '360px'],
+            btnAlign: 'c',
+            shadeClose: false, //点击遮罩关闭
+            btn: ['确定'],
+
+            yes: function(index, layero){
+
+
+
+                var resourceData = $("#roleForm").serialize();
+                var url = "/role/edit";
+
+
+                $.ajax({
+                    async: true,
+                    cache: false,
+                    type: 'post',
+                    dataType: "json",
+                    data: resourceData,
+                    url: url,
+                    success: function (data) {
+
+                    }
+                });
+                layer.close(index);
+            },
+
+        });
+    }
+
+
+    //权限分配
+    function permissionEdit(a) {
+
+        var roleId = $(a).data("id");
+        var name = $(a).data("name");
+
+        //创建树的ul元素
+        var html = '<div class="content_wrap">'+
+                        '<div class="zTreeDemoBackground left">'+
+                            '<ul id="treeDemo" class="ztree"></ul>'+
+                        '</div>'+
+                    '</div>'
+
+        //加载树数据
+        loadTree(roleId);
+
+        layer.open({
+            type:1,
+            title: ['权限分配['+name+']', 'background:#666666;color:#fff;font-size:24px;text-align:center;'],
+            content:html,
+            area: ['600px', '360px'],
+            btnAlign: 'c',
+            shadeClose: false, //点击遮罩关闭
+            btn: ['确定'],
+            yes: function(index, layero){
+
+                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+                var selectedNodes = treeObj.getSelectedNodes();
+
+                var checkedNodes = treeObj.getCheckedNodes(true);
+
+                var stringRoles = "";
+
+                checkedNodes.forEach(function(x, index, a){
+                    stringRoles = stringRoles + x.id + ";";
+                });
+
+                $.post(
+                        "/role/checkedNodes",
+                        {"roleId":roleId, "resourceIds":stringRoles},
+                        function(data,status){
+
+                        }
+                );
+                layer.close(index);
+            },
+
+        });
+    }
+
+
+    //角色添加
+    function roleAdd() {
+
+
+
+        var html =  '<div >'+
+                        '<form action="" id="roleForm">'+
+                            '<div>资源名称：<input type="text" name="name"></div>'+
+                        '</form>'+
+                    '</div>'
+
+
+
+        layer.open({
+            type:1,
+            title: ['角色创建', 'background:#666666;color:#fff;font-size:24px;text-align:center;'],
+            content:html,
+            area: ['600px', '360px'],
+            btnAlign: 'c',
+            shadeClose: false, //点击遮罩关闭
+            btn: ['确定'],
+            yes: function(index, layero){
+
+                var resourceData = $("#roleForm").serialize();
+                $.post(
+                        "/role/create",
+                        resourceData,
+                        function(data,status){
+
+                        }
+                );
+                layer.close(index);
+            },
+
+        });
+    }
+
+
+
+</script>
+

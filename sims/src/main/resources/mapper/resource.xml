@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.its.sims.mapper.ResourceMapper">
+
+    <!-- 通过id查询 -->
+    <select id="query" parameterType="long" resultType="Resource">
+        select
+        *
+        from
+        resource
+        where
+        id=#{id}
+    </select>
+
+
+
+    <!-- 查询所有 -->
+    <select id="queryAll" parameterType="java.util.Map" resultType="Resource">
+        select
+        *
+        from
+        resource
+    </select>
+
+    <!-- 添加 -->
+    <insert id="add" parameterType="Resource" >
+        insert into
+        resource (parentId,name,url,isUse)
+        values
+        (#{parentId},#{name},#{url},#{isUse})
+    </insert>
+    <insert id="create" parameterType="Resource" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        resource (parentId,name,url,isUse)
+        values
+        (#{parentId},#{name},#{url},#{isUse})
+    </insert>
+
+
+
+
+    <!-- 修改 -->
+    <update id="update" parameterType="Resource">
+        update
+        resource
+        <set>
+            <if test="parentId != null">
+                parentId=#{parentId},
+            </if>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="url != null">
+                url=#{url},
+            </if>
+            <if test="isUse != null">
+                isUse=#{isUse},
+            </if>
+
+        </set>
+        where
+        id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="long">
+        delete from
+        resource
+        where
+        id=#{id}
+    </delete>
+
+    <select id="getTotalCounts" parameterType="java.util.Map" resultType="int">
+        select
+        COUNT(id)
+        from
+        resource
+
+    </select>
+
+
+</mapper>

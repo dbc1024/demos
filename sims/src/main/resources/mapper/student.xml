@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.its.sims.mapper.StudentMapper">
+
+    <!-- 通过id查询 -->
+    <select id="query" parameterType="long" resultType="Student">
+        select
+          *
+        from
+          student
+        where
+          id=#{id}
+    </select>
+
+    <!-- 通过联系人电话查询 -->
+    <select id="queryByPhone" parameterType="String" resultType="Student">
+        select
+          *
+        from
+          student
+        where
+          emergencyContactPhone=#{emergencyContactPhone}
+    </select>
+
+    <!-- 通过条件查询 -->
+    <select id="queryAll" parameterType="java.util.Map" resultType="Student">
+        select
+          *
+        from
+          student
+        <include refid="whereSql" />
+        ORDER BY updateTime DESC
+
+        limit #{query.begin},#{query.end}
+    </select>
+
+    <!-- 添加 -->
+    <insert id="add" parameterType="Student" >
+        insert into
+          student (name,gender,age,grade,classes,address,emergencyContact,emergencyContactPhone,updateTime)
+        values
+          (#{name},#{gender},#{age},#{grade},#{classes},#{address},#{emergencyContact},#{emergencyContactPhone},#{updateTime})
+    </insert>
+
+    <!-- 批量添加 -->
+    <insert id ="batchInsert" parameterType="java.util.List" >
+        <selectKey resultType ="java.lang.Integer" keyProperty= "id" order= "AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey >
+        insert into student
+          (name,gender,age,grade,classes,address,emergencyContact,emergencyContactPhone,password,updateTime)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.name},
+            #{item.gender},
+            #{item.age},
+            #{item.grade},
+            #{item.classes},
+            #{item.address},
+            #{item.emergencyContact},
+            #{item.emergencyContactPhone},
+            #{item.password},
+            #{item.updateTime}
+            )
+        </foreach >
+    </insert >
+
+
+    <!-- 修改 -->
+    <update id="update" parameterType="Student">
+        update
+          student
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="gender != null">
+                gender=#{gender},
+            </if>
+            <if test="age != null">
+                age=#{age},
+            </if>
+            <if test="headImgUrl != null">
+                headImgUrl=#{headImgUrl},
+            </if>
+            <if test="grade != null">
+                grade=#{grade},
+            </if>
+            <if test="classes != null">
+                classes=#{classes},
+            </if>
+            <if test="address != null">
+                address=#{address},
+            </if>
+            <if test="emergencyContact != null">
+                emergencyContact=#{emergencyContact},
+            </if>
+            <if test="emergencyContactPhone != null">
+                emergencyContactPhone=#{emergencyContactPhone},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime},
+            </if>
+        </set>
+        where
+          id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="long">
+        delete from
+          student
+        where
+          id=#{id}
+    </delete>
+
+    <select id="getTotalCounts" parameterType="java.util.Map" resultType="int">
+        select
+          COUNT(id)
+        from
+          student
+        <include refid="whereSql" />
+
+    </select>
+
+
+    <sql id="whereSql">
+        <where>
+            <if test="query.keyword != null">
+                and (name like concat('%',#{query.keyword},'%')
+                      or address like concat('%',#{query.keyword},'%'))
+            </if>
+
+            <if test="query.gender != null">
+                and gender = #{query.gender}
+            </if>
+
+            <if test="query.age != null">
+                and age = #{query.age}
+            </if>
+
+            <if test="query.grade != null">
+                and grade = #{query.grade}
+            </if>
+
+            <if test="query.classes != null">
+                and classes = #{query.classes}
+            </if>
+
+            <if test="query.emergencyContact != null">
+                and emergencyContact = #{query.emergencyContact}
+            </if>
+
+            <if test="query.emergencyContactPhone != null">
+                and emergencyContactPhone = #{query.emergencyContactPhone}
+            </if>
+
+        </where>
+    </sql>
+
+
+</mapper>

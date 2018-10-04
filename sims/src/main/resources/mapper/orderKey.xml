@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.its.sims.mapper.OrderKeyMapper">
+
+    <insert id="addKey" parameterType="OrderNumber" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_number(orderDate) VALUES(#{orderDate})
+    </insert>
+
+    <select id="containOtherDay" resultType="INTEGER">
+        SELECT COUNT(id) FROM order_number WHERE orderDate != #{orderDate}
+    </select>
+
+    <delete id="trancateKeys">
+        TRUNCATE TABLE order_number
+    </delete>
+
+</mapper>

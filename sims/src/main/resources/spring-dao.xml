@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- db.properties->DataSoruce->SqlSessionFactory->Mapper->Service->Controller -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<!-- SqlSessionFactoryBean通过getObject获取SqlSessionFactory的实例 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- private Properties configurationProperties -->
+		<property name="configurationProperties">
+			<value>
+	           <!--开启二级缓存，默认就是true就是开启-->
+				cacheEnabled=true
+			</value>
+		</property>
+		
+		
+		<!-- 注入连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 配置MyBatis的映射文件 -->
+		<!-- private Resource[] mapperLocations; -->
+		<property name="mapperLocations" value="classpath*:mapper/*.xml" />
+		<!-- 配置别名的包路径 -->
+		<!-- private String typeAliasesPackage; -->
+		<!-- <property name="typeAliasesPackage" value="com.its.sims.model,cn.itsource.crm.query" /> -->
+		<property name="typeAliasesPackage" value="com.its.sims.model" />
+	</bean>
+
+	<!--一劳永逸：只需要配置一次，以后全部Mapper都不需要配置了 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- private String basePackage; Mapper接口的包路径 -->
+		<property name="basePackage" value="com.its.sims.mapper" />
+	</bean>
+
+	<!-- 1.事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 不是注入sqlSessionFactory，而是注入dataSource (hibernate与mybatis不同)-->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!--注释事务 (在需要加入事务的方法或者类上添加@Transactional)-->
+	<tx:annotation-driven  transaction-manager="transactionManager" />
+
+
+	<!--声明式事务-->
+	<!-- 事务相关控制配置：例如配置事务的传播机制 -->
+	<!--<tx:advice id="simsTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false" />
+			<tx:method name="add*" propagation="REQUIRED" read-only="false" />
+			<tx:method name="create*" propagation="REQUIRED" read-only="false" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false" />
+
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="get*" propagation="SUPPORTS" />
+			<tx:method name="select*" propagation="SUPPORTS" />
+			<tx:method name="query*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>-->
+
+	<!-- 把事务控制在service层 -->
+	<!--<aop:config>
+		<aop:pointcut id="pointcutMethods" expression="execution(* com.its.sims.services.*.*(..))" />
+		<aop:advisor pointcut-ref="pointcutMethods" advice-ref="simsTxAdvice" />
+	</aop:config>-->
+
+
+
+	<!-- 注解的组件扫描 -->
+	<context:component-scan base-package="com.its.sims" />
+	<!-- 开启对spring注解的支持 ，低版本兼容 -->
+	<context:annotation-config />
+
+	<!-- 必须引入spring mvc的配置文件 -->
+	<import resource="classpath:spring-mvc.xml" />
+
+	<import resource="classpath:spring-task.xml" />
+	
+	<import resource="classpath:spring-config.xml" />
+	
+
+
+
+</beans>

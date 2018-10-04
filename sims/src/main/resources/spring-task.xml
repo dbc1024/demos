@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+    <bean id="firstTask" class="com.its.sims.task.TaskTest"/>
+    <task:scheduled-tasks>
+        <!--每隔m秒触发-->
+        <!--<task:scheduled ref="firstTask" method="doTask" cron="0/5 * * * * ?"/>-->
+
+        <!--每天m点触发-->
+        <!--<task:scheduled ref="firstTask" method="doTask" cron="0 0 12 * * ?"/>-->
+
+        <!--每天m点n分触发-->
+       <!-- <task:scheduled ref="firstTask" method="doTask" cron="0 18 11 * * ?"/>-->
+
+        <!--每天m点n分开始，只在此一分钟内，每隔j秒触发-->
+        <task:scheduled ref="firstTask" method="doTask" cron="0/5 39 6 * * ?"/>
+
+        <!--<task:scheduled ref="firstTask" method="doTask" cron="0/5 20-59 11-14 * * ?"/>-->
+
+    </task:scheduled-tasks>
+
+
+
+
+</beans>

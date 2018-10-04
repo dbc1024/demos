@@ -1,0 +1,9 @@
+<div><img src="${user.headImgUrl}" width="100"></div>
+
+<div>${user.name}欢迎使用！【<a href="/login/logout">注销</a>】</div>
+
+<div>【<a href="/student/query/${user.id}">我的主页</a>】</div>
+<div>【<a href="/student/list">班级管理</a>】</div>
+<div>【<a href="/resource/index">资源管理</a>】</div>
+<div>【<a href="/role/index">角色管理</a>】</div>
+

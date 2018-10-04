@@ -1,0 +1,318 @@
+<link rel="stylesheet" href="../../../css/zTree/demo.css" type="text/css">
+<link rel="stylesheet" href="../../../css/zTree/metroStyle/metroStyle.css" type="text/css">
+
+<script type="text/javascript" src="../../../js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../../js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="../../../js/layer/layer.js"></script>
+
+
+<script type="text/javascript">
+    var setting = {
+        async:{
+            enable:true
+        },
+        view : {
+            expandSpeed : "",
+            addHoverDom : addHoverDom,
+            removeHoverDom : removeHoverDom,
+            selectedMulti : false
+        },
+        edit : {
+            enable : true
+        },
+        data : {
+            simpleData : {
+                enable : true,
+                idKey:"id",
+                pIdKey: "parentId",
+                rootPId: 0
+            }
+        },
+        callback : {
+            beforeRemove : beforeRemove,
+            beforeRename : beforeRename,
+            beforeEditName: beforeEditName
+        }
+    };
+
+
+    function loadTree() {
+        postRequest({
+            async: true,
+            url: "/resource/getAll",
+            fun: function (response) {
+                var zNodes = response;
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            }
+        });
+    }
+
+    function beforeEditName(treeId, treeNode) {
+
+        var useStatus = treeNode.isUse;
+
+        var useString;
+
+        if(useStatus==true){
+            useString = '启用<input type="radio" name="isUse" value="true" checked="checked"/>&emsp;&emsp;&emsp;' + '禁用<input type="radio" name="isUse" value="false"/>';
+        }else{
+            useString = '启用<input type="radio" name="isUse" value="true" />&emsp;&emsp;&emsp;' + '禁用<input type="radio" name="isUse" value="false" checked="checked"/>';
+        }
+
+        /*var html ='<div >'+
+                '<form action="" id="resourceForm">'+
+                '<input type="hidden" name="id" value="'+ treeNode.id +'">'+
+                '<input type="hidden" name="parentId" value="'+ treeNode.parentId +'">'+
+                '<div>是否启用：'+
+                '启用<input type="radio" name="isUse" value="true" checked="checked"/>&emsp;&emsp;&emsp;'+
+                '禁用<input type="radio" name="isUse" value="false"/>'+
+                '</div>'+
+                '<div>资源名称：<input type="text" name="name" value="'+ treeNode.name +'"></div>'+
+                '<div>资源路径：<input type="text" name="url" value="'+ treeNode.url +'"></div>'+
+                '</form>'+
+                '</div>'*/
+
+        var html ='<div >'+
+                '<form action="" id="resourceFormEdit">'+
+                '<input type="hidden" name="id" value="'+ treeNode.id +'">'+
+                '<input type="hidden" name="parentId" value="'+ treeNode.parentId +'">'+
+                '<div>是否启用：'+ useString+
+                '</div>'+
+                '<div>资源名称：<input type="text" name="name" value="'+ treeNode.name +'"></div>'+
+                '<div>资源路径：<input type="text" name="url" value="'+ treeNode.url +'"></div>'+
+                '</form>'+
+                '</div>'
+
+        layer.open({
+            type:1,
+            title: ['修改', 'background:#666666;color:#fff;font-size:24px;text-align:center;'],
+            content:html,
+            area: ['600px', '360px'],
+            btnAlign: 'c',
+            shadeClose: false, //点击遮罩关闭
+            btn: ['确定'],
+            yes: function(index, layero){
+
+                var resourceData = $("#resourceFormEdit").serialize();
+                var url = "/resource/edit";
+                var zTree = $.fn.zTree.getZTreeObj(treeId);
+
+                $.ajax({
+                    async: true,
+                    cache: false,
+                    type: 'post',
+                    dataType: "json",
+                    data: resourceData,
+                    url: url,
+                    success: function (returnData) {
+
+                        var newNode = returnData.data;
+
+                        //zTree.updateNode(newNode);
+                        zTree.updateNode(
+                                {
+                                    id : returnData.data.id,
+                                    parentId : returnData.data.parentId,
+                                    name : returnData.data.name,
+                                    url : returnData.data.url,
+                                    isUse : returnData.data.isUse
+                                }
+                        );
+
+                        /*zTree.reAsyncChildNodes({
+                            id : returnData.data.id,
+                            parentId : returnData.data.parentId,
+                            name : returnData.data.name,
+                            url : returnData.data.url,
+                            isUse : returnData.data.isUse
+                        }, "refresh");*/
+
+
+
+                    }
+                });
+                layer.close(index);
+            },
+
+        });
+        return false;
+    }
+
+    function beforeRename(treeId, treeNode, newName) {
+        if (newName.length == 0) {
+            alert("节点名称不能为空.");
+            return false;
+        }
+
+        $.post(
+                "/resource/edit",
+                {id:treeNode.id, name:newName},
+                function(data,status){
+                    alert("修改成功！");
+                }
+        );
+
+
+        return true;
+    }
+
+
+    function beforeRemove(treeId, treeNode) {
+        if(treeNode.isParent){
+            alert("请先删除子节点！");
+            return false;
+        }
+
+        if (confirm("确认删除节点--" + treeNode.name + "--吗?")) {
+            var param = treeNode.id;
+            //$.post(encodeURI(encodeURI("/peTreeDemo2/jsondata?method=deletePp&id=" + param)));
+
+            $.post(
+                    "/resource/delete",
+                    {id:param},
+                    function(data,status){
+                        //alert("删除成功！");
+                    }
+            );
+
+
+        } else {
+            return false;
+        }
+    }
+
+
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0)
+            return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_" + treeNode.tId);
+        if (btn){
+            btn.bind("click", function() {
+
+               /* var form = $("#resourceDiv");
+                form.find("[name='parentId']").attr("value",treeNode.id);
+
+                var html = $("#resourceDiv").html();*/
+
+                var html ='<div >'+
+                        '<form action="" id="resourceForm">'+
+                        '<input type="hidden" name="parentId" value="'+ treeNode.id +'">'+
+                        '<div>是否启用：'+
+                        '启用<input type="radio" name="isUse" value="true" checked="checked"/>&emsp;&emsp;&emsp;'+
+                        '禁用<input type="radio" name="isUse" value="false" />'+
+                        '</div>'+
+                        '<div>资源名称：<input type="text" name="name"></div>'+
+                        '<div>资源路径：<input type="text" name="url"></div>'+
+                        '</form>'+
+                        '</div>'
+
+                layer.open({
+                    type:1,
+                    title: ['新增', 'background:#666666;color:#fff;font-size:24px;text-align:center;'],
+                    content:html,
+                    area: ['600px', '360px'],
+                    btnAlign: 'c',
+                    shadeClose: false, //点击遮罩关闭
+                    btn: ['确定'],
+                    yes: function(index, layero){
+
+                        var resourceData = parent.$("#resourceForm").serialize();
+                        var url = "/resource/create";
+                        var zTree = $.fn.zTree.getZTreeObj(treeId);
+
+
+                        $.ajax({
+                            async: true,
+                            cache: false,
+                            type: 'post',
+                            dataType: "json",
+                            data: resourceData,
+                            url: url,
+                            success: function (returnData) {
+                                if ($.trim(returnData) != null) {
+
+                                    zTree.addNodes(
+                                            //父节点
+                                            treeNode,
+
+                                            //添加的节点内容
+                                            {
+                                                id : returnData.data.id,
+                                                parentId : returnData.data.parentId,
+                                                name : returnData.data.name,
+                                                url : returnData.data.url,
+                                                isUse : returnData.data.isUse
+                                            }
+                                    );
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    },
+
+                });
+
+            });
+        }
+    };
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_" + treeNode.tId).unbind().remove();
+    };
+
+    function postRequest(request) {
+        //var d = tipMsg("loading", "加载中......", 2000);
+        var async = request.async;
+        var fun = request.fun;
+        $.ajax({
+            async: async,
+            cache: false,
+            type: 'post',
+            dataType: "json",
+            data: request.data,
+            url: request.url,
+            success: function (response) {
+                //d.remove();
+                fun(response);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        //$.fn.zTree.init($("#treeDemo"), setting);
+        loadTree();
+
+    });
+
+</script>
+
+<!-- 弹出层原始思路是获取下面这个div作为内容，
+	但是在序列化表单的时候，表单中的每个值都会重复，
+	所以我改成了直接拼接一下内容
+
+	 -->
+#*<div id="resourceDiv" style="display: none">
+    <form action="" id="resourceForm">
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="parentId" value="" id="parentId">
+
+        <div>是否启用：#if( $foo )<strong>Velocity!</strong>#end
+            启用<input type="radio" name="isUse" value=true #if($treeNode.isUse==true)checked="checked"#end/>&emsp;&emsp;&emsp;
+            禁用<input type="radio" name="isUse" value=false />
+        </div>
+        <div>资源名称：<input type="text" name="name" value="" id="newName"></div>
+        <div>资源路径：<input type="text" name="url" value="" id="url"></div>
+
+    </form>
+</div>*#
+
+<div class="content_wrap">
+
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>
