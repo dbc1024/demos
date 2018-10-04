@@ -1,0 +1,20 @@
+server:
+  port: 80
+  
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.31.211:3306/testdb?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    
+    
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+  
+logging:
+  level: 
+    com:
+      hqyt:
+        mapper: debug

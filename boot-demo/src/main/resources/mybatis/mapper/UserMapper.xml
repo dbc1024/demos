@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyt.mapper.UserMapper" >
+
+	<!-- 以map的形式来封装结果集 -->
+	<resultMap id="ResultAsMap" type="java.util.HashMap" >
+        <id column="id" property="u_id" />
+        <result column="username" property="u_username" />
+        <result column="age" property="u_age" />
+        <result column="createTime" property="u_createTime" />
+        
+       	<!--  一对一 --><!-- 如果一方是java类中就不能随便写property="u_dormitory"，必须要有对应的字段才行。map可以随便加入任何名称字段 -->
+        <association property="u_dormitory" javaType="java.util.HashMap">
+			<id property="d_id" column="did" />
+			<result property="d_roomNum" column="roomNum" />
+		</association>
+		
+		<!--  一对多 --><!-- 用List<Map>的结构来处理 -->
+		<collection property="u_scores" ofType="java.util.Map" javaType="java.util.List">
+			<id property="s_id" column="sid" /><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
+			<result property="s_score" column="score" /><!-- property对应JavaBean中的属性名 -->
+			<result property="s_objectId" column="objectId" />
+			<result property="s_userId" column="userId" />
+		</collection>
+		
+    </resultMap>
+
+	<select id="getUserMapList" resultMap="ResultAsMap"  parameterType="com.hqyt.model.User" >
+        SELECT
+        u.id, u.username, u.age, u.createTime, 
+        s.id sid, s.userId, s.score, s.objectId,
+        d.id did, d.roomNum
+        FROM user u 
+        left join score s on u.id=s.userId
+        left join dormitory d on u.roomNum=d.roomNum
+        <where>
+        	<if test="username != null">
+	        	username = #{username}
+	        </if>
+	        <if test="age != null">
+	        	and age = #{age}
+	        </if>
+        </where>
+    </select>
+    
+    <select id="getUserMapById" parameterType="java.lang.Integer" resultMap="ResultAsMap" >
+        SELECT
+        u.id, u.username, u.age, u.createTime, 
+        s.id sid, s.userId, s.score, s.objectId,
+        d.id did, d.roomNum
+        FROM user u 
+        left join score s on u.id=s.userId
+        left join dormitory d on u.roomNum=d.roomNum
+        WHERE u.id = #{id}
+    </select>
+
+    <resultMap id="BaseResultMap" type="com.hqyt.model.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        
+    </resultMap>
+    
+    
+ 
+ 	<!-- date_format(createTime, '%Y-%m-%d %H-%I-%S') -->
+    <sql id="Base_Column_List" >
+        id, username, age, createTime
+    </sql>
+ 
+    <select id="getUserList" resultMap="BaseResultMap"  parameterType="com.hqyt.model.User" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+        <where>
+        	<if test="username != null">
+	        	username = #{username}
+	        </if>
+	        <if test="age != null">
+	        	and age = #{age}
+	        </if>
+        </where>
+    </select>
+    
+     
+    
+ 
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+        WHERE id = #{id}
+    </select>
+    
+    
+ 
+    <insert id="add" parameterType="com.hqyt.model.User" >
+        INSERT INTO
+        user
+        (username,age,createTime)
+        VALUES
+        (#{username}, #{age}, now())
+    </insert>
+ 
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE
+        user
+        SET
+        username = #{user.username},age = #{user.age}
+        WHERE
+        id = #{user.id}
+    </update>
+ 
+    <delete id="delete" parameterType="java.lang.Integer" >
+        DELETE FROM
+        user
+        WHERE
+        id = #{id}
+    </delete>
+</mapper>
