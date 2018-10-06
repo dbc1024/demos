@@ -15,7 +15,10 @@ eureka:
       status-page-url: http://localhost/swagger-ui.html
 zuul:
   routes:
-    user666:
+    user:
       path: /user/**
     order:
       path: /order/**
+#  ignored-patterns: /**/api-docs/** #ºöÂÔÄ³Ğ©url£¬ÈÃÆä404
+
+
