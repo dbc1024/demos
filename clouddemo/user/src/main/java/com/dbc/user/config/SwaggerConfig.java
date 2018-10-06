@@ -2,6 +2,8 @@ package com.dbc.user.config;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +18,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-
+import springfox.documentation.swagger.web.UiConfiguration;
 
 
 @Configuration
@@ -48,4 +50,5 @@ public class SwaggerConfig {
                 .version("1.0")
                 .build();
     }
+
 }

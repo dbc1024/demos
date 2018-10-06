@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: api-gateway
+
+
+server:
+  port: 80
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+      status-page-url: http://localhost/swagger-ui.html
+zuul:
+  routes:
+    user666:
+      path: /user/**
+    order:
+      path: /order/**

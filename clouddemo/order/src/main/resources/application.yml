@@ -20,4 +20,4 @@ eureka:
     serviceUrl:
           defaultZone: http://localhost:8761/eureka/
   instance:
-    status-page-url: http://localhost:8082/swagger-ui.html
+    status-page-url: http://localhost/swagger-ui.html
