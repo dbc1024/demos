@@ -25,6 +25,14 @@ public class OrderController {
     @GetMapping("user/{id}")
     public Object getUserTest(@PathVariable Integer id){
 
+        /**
+         * 熔断测试思路：
+         *  先停掉user服务，所以在调用user服务必然会失败，从而会触发法务降级，从而调用fallback。
+         *  此时id为2的倍数的请求不会调用user服务，所以是直接返回提示字符串。
+         *
+         *  接着连续发起id不为2倍数的请求，让其不断失败调用user服务，达到熔断条件，触发熔断。
+         *  此时再发起id为2的倍数的请求，根本不会进入此方法了，也只能调用fallback方法。
+         */
         if(id%2==0){
             return "success，直接返回，不进行服务调用，不触发熔断";
         }
@@ -34,7 +42,7 @@ public class OrderController {
         return user;
     }
 
-    private Object fallback(Integer id){//必须与被降级方法有自相同的入参，否则会报找不到方法
+    private Object fallback(Integer id){//必须与被降级方法有相同的入参，否则会报找不到该降级方法
 
         return "太拥挤了，请稍后再试~~~~~";
     }
