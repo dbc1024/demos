@@ -1,0 +1,15 @@
+server:  
+  port: 8081
+spring:  
+  application:
+    name: ylb-center
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka
+  instance:
+    hostname: localhost
+  server:
+    eviction-interval-timer-in-ms: 5000

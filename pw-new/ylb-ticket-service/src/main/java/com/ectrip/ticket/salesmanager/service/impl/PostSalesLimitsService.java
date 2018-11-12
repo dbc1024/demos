@@ -1,0 +1,101 @@
+package com.ectrip.ticket.salesmanager.service.impl;
+
+import java.util.List;
+
+import com.ectrip.base.util.PaginationSupport;
+import com.ectrip.sys.model.syspar.Syslog;
+import com.ectrip.ticket.model.salesmanager.Osppostsaleslimitstab;
+import com.ectrip.ticket.salesmanager.dao.IPostSalesLimitsDAO;
+import com.ectrip.ticket.salesmanager.service.IPostSalesLimitsService;
+
+public class PostSalesLimitsService implements IPostSalesLimitsService {
+	private IPostSalesLimitsDAO postsalelimitsDao;
+
+
+	public IPostSalesLimitsDAO getPostsalelimitsDao() {
+		return postsalelimitsDao;
+	}
+
+	public void setPostsalelimitsDao(IPostSalesLimitsDAO postsalelimitsDao) {
+		this.postsalelimitsDao = postsalelimitsDao;
+	}
+
+	/**
+	 *  分页查询岗位权限列表
+	 * Describe:
+	 * @auth:huangyuqi
+	 * @param page
+	 * @param pagesize
+	 * @param url
+	 * @return
+	 * return:PaginationSupport
+	 * Date:2011-10-5
+	 */
+	public PaginationSupport getPostSaleLimitsList(int page,int pagesize,String url){
+		return postsalelimitsDao.getPostSaleLimitsList(page, pagesize, url);
+	}
+
+	/**
+	 * 岗位销售权限增加
+	 * Describe:
+	 * @auth:huangyuqi
+	 * @param postsalelimits
+	 * @param syslog
+	 * return:void
+	 * Date:2011-10-5
+	 */
+	public void insertPostSaleLimits(List postsalelimitslist,Syslog syslog){
+
+		postsalelimitsDao.insertPostSaleLimits(postsalelimitslist, syslog);
+	}
+	/**
+	 * 岗位销售权限修改
+	 * Describe:
+	 * @auth:huangyuqi
+	 * @param postsalelimits
+	 * @param syslog
+	 * return:void
+	 * Date:2011-10-5
+	 */
+	public void updatePostSaleLimits(List postsalelimitslist,Syslog syslog){
+		postsalelimitsDao.updatePostSaleLimits(postsalelimitslist, syslog);
+	}
+	/**
+	 * 岗位销售权限删除
+	 * Describe:
+	 * @auth:huangyuqi
+	 * @param iosppostsalelimitsid
+	 * @param syslog
+	 * return:void
+	 * Date:2011-10-5
+	 */
+	public void deletePostSaleLimits(Long iosppostsalelimitsid,Syslog syslog){
+
+		postsalelimitsDao.deletePostSaleLimits(iosppostsalelimitsid, syslog);
+	}
+	/**
+	 * 根据岗销售编号得到岗位销售信息
+	 * Describe:
+	 * @auth:huangyuqi
+	 * @param postsaleId
+	 * @return
+	 * return:Osppostsaleslimitstab
+	 * Date:2011-10-5
+	 */
+	public Osppostsaleslimitstab queryPostSaleLimits(Long postsaleId){
+		return postsalelimitsDao.queryPostSaleLimits(postsaleId);
+	}
+	/**
+	 * 根据岗销售编号得到岗位销售信息列表
+	 * Describe:
+	 * @auth:huangyuqi
+	 * @param postsaleId
+	 * @return
+	 * return:Osppostsaleslimitstab
+	 * Date:2011-10-5
+	 */
+	public List queryPostSaleLimitsList(Long postsaleId){
+		return postsalelimitsDao.queryPostSaleLimitsList(postsaleId);
+	}
+}
+

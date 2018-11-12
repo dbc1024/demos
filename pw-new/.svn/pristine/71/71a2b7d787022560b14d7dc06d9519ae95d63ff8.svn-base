@@ -1,0 +1,67 @@
+spring:
+  profiles: service1
+  application:
+    name: ylb-center-ha
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://service2:8083/eureka,http://service3:8084/eureka,http://service4:8085/eureka
+  instance:
+    hostname: service1
+  server:
+    eviction-interval-timer-in-ms: 5000
+server:
+  port: 8081
+---
+spring:
+  profiles: service2
+  application:
+    name: ylb-center-ha
+server:
+  port: 8083
+eureka:
+  instance:
+    hostname: service2
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://service1:8081/eureka/,http://service3:8084/eureka,http://service4:8085/eureka
+  server:
+    eviction-interval-timer-in-ms: 5000
+---
+spring:
+  profiles: service3
+  application:
+    name: ylb-center-ha
+server:
+  port: 8084
+eureka:
+  instance:
+    hostname: service3
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://service1:8081/eureka/,http://service2:8083/eureka,http://service4:8085/eureka
+  server:
+    eviction-interval-timer-in-ms: 5000
+---
+spring:
+  profiles: service4
+  application:
+    name: ylb-center-ha
+server:
+  port: 8085
+eureka:
+  instance:
+    hostname: service4
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://service1:8081/eureka/,http://service2:8083/eureka,http://service3:8084/eureka
+  server:
+    eviction-interval-timer-in-ms: 5000

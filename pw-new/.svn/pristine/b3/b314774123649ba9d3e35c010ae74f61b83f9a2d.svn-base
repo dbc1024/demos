@@ -1,0 +1,26 @@
+        消费撤销回执
+操作人员:
+<!--czname-->
+授权人员:
+<!--sqname-->
+卡片类型:
+<!--cardName-->
+卡片编号:
+<!--cardNum-->
+客户编号:
+<!--usid-->
+客户名称:
+<!--lname-->
+订单号码:
+<!--orid-->
+撤销订单:
+<!--porid-->
+撤销时间:
+<!--time-->
+
+消费项目|撤销金额
+---------------------------------
+<!--while1-->
+sztickettypename
+consumeamount
+<!--whileEnd1-->

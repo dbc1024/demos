@@ -1,0 +1,56 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://service1:8081/eureka
+  instance:
+    status-page-url: http://service1:8082/swagger-ui.html
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+server:
+  context-path: /
+  port: '81'
+spring:
+  application:
+    name: ticket-service
+  #数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name:  oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.0.102:1521:orcl
+    username: ctcenternew
+    password: ctcenternew
+    #连接池的配置信息 
+    initialSize: 5  
+    minIdle: 5  
+    maxActive: 20  
+    maxWait: 60000  
+    timeBetweenEvictionRunsMillis: 60000     
+    minEvictableIdleTimeMillis: 300000  
+    validationQuery: SELECT 1 FROM DUAL  
+    testWhileIdle: true  
+    testOnBorrow: false  
+    testOnReturn: false  
+    poolPreparedStatements: true  
+    maxPoolPreparedStatementPerConnectionSize: 20  
+    filters: stat,wall,log4j  
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true 
+  jpa:
+    database: oracle
+    format-sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.Oracle9iDialect
+    properties:
+      hibernate:
+        default_schema: ctcenternew
+security:
+  oauth2:
+    resource:
+      id: oauth-service
+      user-info-uri: http://service1:87/user
+      prefer-token-info: false
+logging:
+  level:
+    com.ectrip.ticket: DEBUG

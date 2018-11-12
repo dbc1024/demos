@@ -1,0 +1,22 @@
+        消费回执
+消费设备:
+<!--szaccessequipname-->
+卡片类型:
+<!--cardName-->
+卡片编号:
+<!--cardNum-->
+客户编号:
+<!--usid-->
+客户名称:
+<!--lname-->
+订单号码:
+<!--orid-->
+消费时间:
+<!--time-->
+
+消费项目|消费金额
+---------------------------------
+<!--while1-->
+sztickettypename
+consumeamount
+<!--whileEnd1-->

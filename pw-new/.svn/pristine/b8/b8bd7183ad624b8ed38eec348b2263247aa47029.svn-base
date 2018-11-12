@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: C:\project\git\config\ #git创库地址
+          force-pull: true
+server:
+  port: 88
+  context-path: /
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.host}:8081/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    status-page-url: http://${eureka.server.host}:8082/swagger-ui.html
+  server:
+    host: 192.168.0.111

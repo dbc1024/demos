@@ -1,0 +1,166 @@
+<html>
+  <body>
+    <table width="100%" border="0">
+      <tr>
+        <th scope="row" height="60" colspan="4" bgcolor="#83a9b4" align="center">
+          <font size="16">
+          <!--cardName-->
+          </font>
+          <font color="red" size="14">
+          <!--status-->
+		  </font>
+        </th>
+      </tr>
+      <tr height="10"></tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+           用户姓名:
+        </th>
+        <td align="left">
+          <!--userName-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          证件号码:
+        </th>
+        <td align="left">
+          <!--userIDCard-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          用户编号:
+        </th>
+        <td align="left">
+          <!--userId-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          卡片编号:
+        </th>
+        <td align="left">
+          <!--cardNo-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          联系电话:
+        </th>
+        <td align="left">
+          <!--tel-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          开卡时间:
+        </th>
+        <td align="left">
+          <!--openTime-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          现金余额:
+        </th>
+        <td align="left">
+        <font color="red">
+        <!--balance-->
+        </font>
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          赠送余额:
+        </th>
+        <td align="left">
+          <font color="red">
+          <!--zsBalance-->
+          </font>
+        </td>
+      </tr>
+      <tr height="10"></tr>
+    </table>
+    <table width="100%">
+      <tr>
+        <th scope="row" height="30" colspan="6" bgcolor="#83a999" align="center">
+          收费记录
+        </th>
+      </tr>
+      <tr height="10">
+      </tr>
+      <tr bgcolor="#f7fcff">
+        <th>订单号</th>
+      	<th>营收金额</th>
+        <th>赠送金额</th>
+        <th>操作类型</th>
+        <th>操作人员</th>
+        <th>操作时间</th>
+      </tr>
+      <!--while1-->
+      <tr>
+        <td  align="center">
+         <font color="blue">
+          <!--value-->
+          </font>
+        </td >
+        <td  align="center">
+          <font color="red">
+          <!--value-->
+          </font>
+        </td>
+        <td  align="center">
+          <!--value-->
+        </td>
+         <td align="center">
+           <!--value-->
+        </td>
+        <td  align="center">
+           <!--value-->
+        </td>
+        <td  align="center">
+           <!--value-->
+        </td>
+      </tr>
+      <!--whileEnd1-->
+      <tr height="10"></tr>
+    </table>
+    <table width="100%">
+      <tr>
+        <th scope="row" height="30" colspan="6" bgcolor="#83a999" align="center">
+          消费记录
+        </th>
+      </tr>
+      <tr height="10">
+      </tr>
+      <tr bgcolor="#f7fcff">
+      	<th>订单号</th>
+        <th>消费金额</th>
+        <th>状态</th>
+        <th>消费项目</th>
+        <th>消费方式</th>
+        <th>消费时间</th>
+      </tr>
+      <!--while2-->
+      <tr>
+        <td  align="center">
+         <font color="blue">
+          <!--value-->
+          </font>
+        </td >
+        <td  align="center">
+         <font color="red">
+          <!--value-->
+          </font>
+        </td>
+        <td  align="center">
+          <!--value-->
+        </td>
+        <td  align="center">
+          <!--value-->
+        </td>
+         <td align="center">
+          <!--value-->
+        </td>
+        <td  align="center">
+        <!--value-->
+        </td>
+      </tr>
+      <!--whileEnd2-->
+      <tr height="10"></tr>
+    </table>
+  </body>
+</html>

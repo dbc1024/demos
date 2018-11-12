@@ -1,0 +1,6 @@
+1.获取token：通过password授权
+http://192.168.0.111:8082/uaa/oauth/token?username=admin&password=12345678
+&grant_type=password&scope=app&client_id=android&client_secret=android
+2.刷新token
+http://192.168.0.111:8082/uaa/oauth/token?client_id=android&client_secret=android
+&grant_type=refresh_token&refresh_token=ddb27f80-58e2-4361-a9bf-2a3a2c235e1a

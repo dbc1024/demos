@@ -1,0 +1,72 @@
+<html>
+  <body>
+    <table width="100%" border="0">
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          订单号:
+        </th>
+        <td align="left">
+          <!--orid-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          处理时间:
+        </th>
+        <td align="left">
+          <!--time-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          订单类型:
+        </th>
+        <td align="left">
+          <!--cztpStr-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          支付方式:
+        </th>
+        <td align="left">
+          <!--zffsStr-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          售票窗口:
+        </th>
+        <td align="left">
+          <!--szticketwinname-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          操作人员:
+        </th>
+        <td align="left">
+          <!--szemployeename-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          原订单:
+        </th>
+        <td align="left">
+          <!--porid-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          授权人:
+        </th>
+        <td align="left">
+          <!--sqname-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          备注:
+        </th>
+        <td align="left" colspan="3">
+        <div>
+        <!--note-->
+        </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

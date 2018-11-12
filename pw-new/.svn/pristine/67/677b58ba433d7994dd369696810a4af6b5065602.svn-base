@@ -1,0 +1,27 @@
+      撤销回执
+操作窗口:
+<!--szticketwinname-->
+操作人员:
+<!--szemployeename-->
+授权人员:
+<!--sqname-->
+卡片类型:
+<!--cardName-->
+卡片编号:
+<!--cardNum-->
+客户编号:
+<!--usid-->
+客户名称:
+<!--lname-->
+订单号码:
+<!--orid-->
+撤销订单:
+<!--porid-->
+支付方式:
+<!--zffsStr-->
+撤销金额:
+<!--amount-->
+赠送撤销:
+<!--accpointzs-->
+撤销时间:
+<!--time-->

@@ -1,0 +1,66 @@
+##  服务端口
+server:
+  port: 8082
+##  服务名称
+spring:
+  application:
+    name: zuul-service
+##  eureka配置
+eureka:
+  client:
+    service-url:
+      defaultZone:   http://service1:8081/eureka/ #service1
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    status-page-url: http://service1:8082/swagger-ui.html
+##  日志
+logging:
+  level:
+    root: info
+    com:
+      netflix:
+        eureka: 'off'
+        discovery:  'off'
+## 关闭管理类接口的安全认证
+management:
+  security:
+    enabled: false
+zuul:
+  routes:
+    uaa:
+      path: /uaa/**
+      sensitiveHeaders: "*"
+      serviceId: oauth-service
+    sys:
+      path: /sys/**
+      sensitiveHeaders: "*"
+      serviceId: sys-service
+    tourcard:
+      path: /tourcard/**
+      sensitiveHeaders: "*"
+      serviceId: tourcard-service
+    ticket:
+      path: /ticket/**
+      sensitiveHeaders: "*"
+      serviceId: ticket-service
+    ec:
+      path: /ec/**
+      sensitiveHeaders: "*"
+      serviceId: ec-service
+  add-proxy-headers: true
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
+security:
+  oauth2:
+    client:
+      access-token-uri: http://service1:${server.port}/uaa/oauth/token
+      user-authorization-uri: http://service1:${server.port}/uaa/oauth/authorize
+      client-id: webapp
+    resource:
+      user-info-uri: http://service1:${server.port}/uaa/user
+      prefer-token-info: false
+ribbon:
+  ReadTimeout:  10000
+  ConnectTimeout: 10000

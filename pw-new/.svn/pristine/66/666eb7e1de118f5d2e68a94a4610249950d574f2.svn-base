@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ectrip</groupId>
+  <artifactId>hqyt-ylb</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>hqyt-ylb</name>
+  <url>http://maven.apache.org</url>
+  <parent>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-parent</artifactId>
+     <version>1.5.10.RELEASE</version>
+  </parent>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+   <dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<scope>test</scope>
+	</dependency>
+     <!-- 只需引入spring-boot-devtools 即可实现热部署 -->
+     <!-- <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-devtools</artifactId>
+     </dependency> -->
+     <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-actuator</artifactId>
+     </dependency>
+</dependencies>
+  <profiles>
+	  <profile>
+	        <id>jdk-1.8</id>
+	        <!-- 另外一种激活方式 -->
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	            <jdk>1.8</jdk>
+	        </activation>
+	        <properties>
+	            <maven.compiler.source>1.8</maven.compiler.source>
+	            <maven.compiler.target>1.8</maven.compiler.target>
+				<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+	        </properties>
+	    </profile>
+  </profiles>
+  <dependencyManagement>
+	  <dependencies>
+		  <dependency>
+		  <groupId>org.springframework.cloud</groupId>
+		  <artifactId>spring-cloud-dependencies</artifactId>
+		  <version>Dalston.SR5</version>
+		  <type>pom</type>
+		  <scope>import</scope>
+		  </dependency>
+	  </dependencies>
+  </dependencyManagement>
+  <modules>
+  	<module>ylb-hiberbate-base</module>
+  	<module>ylb-ticket-service-api</module>
+    <module>ylb-ticket-service</module>
+    <module>ylb-tourcard-service-api</module>
+    <module>ylb-sys-service-api</module>
+    <module>ylb-ec-service-api</module>
+    <module>ylb-center</module>
+    <module>ylb-config-server</module>
+    <module>ylb-ec-service</module>
+    <module>ylb-sys-service</module>
+    <module>ylb-report-service</module>
+    <module>ylb-tourcard-service</module>
+    <module>ylb-zuul-service</module>
+	<module>ylb-monitor</module>
+	<module>ylb-oauth-jwt-service</module>
+  </modules>
+</project>

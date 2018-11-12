@@ -1,0 +1,5 @@
+##配置开发 测试 生产环境
+spring:
+  profiles:
+    active: dev
+    

@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+#增加报表系统服务器信息配置
+reportServer:
+    host: 192.168.0.102 #ip或者域名
+    port: 80
+    contextPath: /

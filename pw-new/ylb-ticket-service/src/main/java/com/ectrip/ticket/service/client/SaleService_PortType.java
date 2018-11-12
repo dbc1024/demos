@@ -1,0 +1,121 @@
+/**
+ * SaleService_PortType.java
+ *
+ * This file was auto-generated from WSDL
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
+ *//*
+
+package com.ectrip.ticket.service.client;
+
+public interface SaleService_PortType extends java.rmi.Remote {
+    public java.lang.String getDayTimes() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean empztlogin(java.lang.Long iscenicid, java.lang.String userid, java.lang.String password) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean emplogin(java.lang.Long iscenicid, java.lang.String userid, java.lang.String password) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getEsbticketstationtabByID(java.lang.Long id, java.lang.Long byisuse) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getEsbticketwintabByIP(java.lang.Long iscenicid, java.lang.String ip, java.lang.Long byisuse) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getscenic() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getbusiness() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTicketPrice(java.lang.Long iticketwinid, java.lang.Long iemployeeid, java.lang.Long ibusinessid, java.lang.String stdt, java.lang.String jsfz) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTicketPrice(java.lang.Long iticketwinid, java.lang.Long iemployeeid, java.lang.Long ibusinessid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTicket(java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getEmployee(java.lang.String userid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getcancelprint(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getcustom(java.lang.Long ibusinessid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getemployeecard(java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTrip(java.lang.Long itickettypeid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getAllTrip(java.lang.Long iscenicid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTripcontrol(java.lang.Long iscenicid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getProductcontrol(java.lang.Long itickettypeid, java.lang.Long tripid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getProductdatacontrol(java.lang.Long itickettypeid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getAllcustom() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean savetorder(java.lang.String orid, java.lang.Long iscenicid, java.lang.Long iticketwinid, java.lang.Long iemployeeid, java.lang.String version, java.lang.String[] param) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean saveorder(java.lang.String salesvouchers, java.lang.String salesvoucherdetails, java.lang.String comticketsalesdetails, java.lang.String productcontrols, java.lang.String version, java.lang.String[] param) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean soldticketlist(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean salezdetaillist(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getT_order(java.lang.String carno, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getT_orderByWin(java.lang.String carno, java.lang.Long iscenicid, java.lang.Long winid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getT_orderbyorid(java.lang.String orid, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getT_orderlist(java.lang.String orid, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getT_zorderlistbyorderlistid(java.lang.Long orderlistid, java.lang.String orid, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTicketmesssage(java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getOrderTicketmesssage(java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean savereturnticket(java.lang.String szticketprintnos, java.lang.String iztickettypeids, java.lang.Long newiticketwinid, java.lang.Long iemployeeid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getStssalesvouchertab(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getprintmanage(java.lang.Long iscenicid, java.lang.Long ibusinessid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean ticketreprint(java.lang.String iserialnums, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public double getsumjifen(java.lang.String usid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getStssalesvouchertablist(java.lang.Long iemployeeid, java.lang.String stdt, java.lang.String eddt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean resoldticketlist(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid, java.lang.String szsalesvoucherno, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public int changepassword(java.lang.String userid, java.lang.String oldpassword, java.lang.String newpassword) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getFtp(java.lang.String iticketstationid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getForce() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getcheckTicketmesssage(java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public java.lang.String getoridbyticketprintno(java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public int updateprintbyprintno(java.lang.String szsalesvoucherno, java.lang.String szticketprintno, java.lang.String printtype, java.lang.Long iemployeeid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getsysparcs(java.lang.String pmky) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getsysparcs(java.lang.String pmky, java.lang.String pmcd) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean querynotprint(java.lang.Long iemployeeid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getReservecontrol(java.lang.Long itickettypeid, java.lang.String usid, java.lang.String stdt, java.lang.Long tripid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean updatenojinquT_order(java.lang.String orid, java.lang.Long iscenicid, java.lang.Long iemployeeid, java.lang.Double mont) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean reprintbyorid(java.lang.String szsalesvoucherno, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public void updatestsprint(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getorderbyorid(java.lang.String orid, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean checkingFirstBarcodet(java.lang.Long iscenicid, java.lang.Long ticketpriceid, java.lang.Long userid, java.lang.String tourDate, int num, java.lang.String[] otherParm) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean checkingFirstBarcodet(java.lang.Long iscenicid, java.lang.Long ticketpriceid, java.lang.Long userid, java.lang.String tourDate, java.lang.String[] otherParm) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean checkingPrefabricateTicket(java.lang.Long iscenicid, java.lang.Long ticketpriceid, java.lang.String firstBarcode, int count, java.lang.String tourDate, java.lang.Long userid, java.lang.String[] otherParm) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean ticketreprintbylb(java.lang.String cdcs, java.lang.String iserialnums, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getICID(java.lang.String typeid, java.lang.Long id) throws java.rmi.RemoteException;
+    public java.lang.String personCheckoutiaMount(java.lang.Long iscenicid, java.lang.Long ticketpriceid, int count, java.lang.String tourDate, java.lang.Long userid, java.lang.String[] otherParm) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean gettickmont(java.lang.Long icrowdkindpriceid, java.lang.Long numb, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean gettickmont(java.lang.Long icrowdkindpriceid, java.lang.Long numb, java.lang.String stdt, java.lang.String[] otherParm) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getDaoyou(java.lang.String lname) throws java.rmi.RemoteException;
+    public void updatestatus(java.lang.Long accid, java.lang.String typestatus, java.lang.Long byisuse) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTicketPricebyiscenicid(java.lang.Long iticketwinid, java.lang.Long iemployeeid, java.lang.Long ibusinessid, java.lang.String stdt, java.lang.Long iscenicid, java.lang.String jsfz) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getTicketPricebyiscenicid(java.lang.Long iticketwinid, java.lang.Long iemployeeid, java.lang.Long ibusinessid, java.lang.String stdt, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getordercs(java.lang.Long ibusinessid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getGalsourceregiontab() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getfapiao(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid, java.lang.Long iemployeeid, java.lang.Long iticketwinid, java.lang.String corpname, java.lang.String fpno, java.lang.String[] param) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getfapiao(java.lang.String orid, java.lang.Long iscenicid, java.lang.Long iemployeeid, java.lang.String corpname, java.lang.String fpno, java.lang.String[] param) throws java.rmi.RemoteException;
+    public void updatefapiao(java.lang.Long isalesvoucherid, java.lang.Long iticketstationid) throws java.rmi.RemoteException;
+    public void updatefapiaobyorid(java.lang.String orid, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getempordermassage(java.lang.Long iemployeeid, java.lang.String date) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getprogram(java.lang.Long iscenicid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getvenue(java.lang.Long ivenueid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getseatstusts(java.lang.Long ivenueid, java.lang.String stdt, java.lang.Long tripid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getareapricve(java.lang.Long itripprdcontrolid, java.lang.String stdt, java.lang.String groupid, java.lang.Long ibusinessid, java.lang.Long ivenueareaid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getareapricve(java.lang.Long itripprdcontrolid, java.lang.String stdt, java.lang.String groupid, java.lang.Long ibusinessid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getprogrambyproductid(java.lang.Long iproductid, java.lang.String stdt) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getareaseatstusts(java.lang.Long ivenueid, java.lang.Long ivenueareaid, java.lang.String stdt, java.lang.Long tripid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getseatlocklist(java.lang.String date) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean checkEdpofferschemetab(java.lang.String offerschme) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean queryStockWarenumb(java.lang.String usid, java.lang.String iscenicid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean checkTicketzhiwe(java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean queryListzjhmPrint(java.lang.String zjhm) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean checkSaveprintStssold(java.lang.String szsoldticketid, java.lang.String isalesvoucherid, java.lang.String isalesvoucherdetailsid, java.lang.String iticketstationid, java.lang.String zjhm, java.lang.String bsfilebinary) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getGateTicketCount(java.lang.Long iscenicid, java.lang.Long iticktypeid, java.lang.Long tickettypeid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getICData(java.lang.String szTicketPrintNo, int type) throws java.rmi.RemoteException;
+    public boolean getVaildcheckCodeup(java.lang.Long iscenicid, java.lang.String oldszticketno, java.lang.String newszticketno, java.lang.Long iscz) throws java.rmi.RemoteException;
+    public boolean jihuobyzjno(java.lang.Long iscenicid, java.lang.String szticketno, java.lang.String name, java.lang.String zjno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getResultBean() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean saveorderreturnticket(java.lang.String tickets, java.lang.Long newiticketwinid, java.lang.Long iemployeeid, java.lang.Long isqt, java.lang.Long forceemid, java.lang.String forcenote, java.lang.Long issx) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean cancelt_order(java.lang.String orid, java.lang.Long iscenicid, java.lang.Double mont, java.lang.Long newiticketwinid, java.lang.Long iemployeeid, java.lang.String message, java.lang.Long isqt, java.lang.Long forceemid) throws java.rmi.RemoteException;
+    public java.lang.String getPasswordcontrol() throws java.rmi.RemoteException;
+    public java.lang.String gettptd() throws java.rmi.RemoteException;
+    public java.lang.String getcptd() throws java.rmi.RemoteException;
+    public java.lang.String getgqptd() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean cancelstopraftorder(java.lang.String orid, java.lang.Long iscenicid, java.lang.Long newiticketwinid, java.lang.Long iemployeeid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean zhuceticketwin(java.lang.String mac, java.lang.String ip, java.lang.Long iscenicid) throws java.rmi.RemoteException;
+    public java.lang.String getclientversion() throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getWebContant() throws java.rmi.RemoteException;
+    public int icSaleWriteLog(java.lang.String szTicketPrintNo, int equipmentID, java.lang.String ICBLOCK, java.lang.String ICContent) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getSodeprintmanage(java.lang.Long iscenicid, java.lang.Long ibusinessid) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean guashi(java.lang.Long iemployeeid, java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean jiegua(java.lang.Long iemployeeid, java.lang.String szticketprintno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean yanqi(java.lang.Long iemployeeid, java.lang.Long iscenicid, java.lang.Long iticketwinid, java.lang.String szticketprintno, double iaccountreceivable, double iacceptmoney, double igivechange, java.lang.String zffs) throws java.rmi.RemoteException;
+    public java.lang.String getSalevoucher(java.lang.String iscenicid, java.lang.String isalevocherid, int type) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getICcardType() throws java.rmi.RemoteException;
+    public int ticketZwdengji(java.lang.String type, java.lang.String ticketno, java.lang.String ziwenno) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean saleautoservice(java.lang.String md5Str, java.lang.String userid, java.lang.String password, java.lang.Long method, java.lang.String[] parameters) throws java.rmi.RemoteException;
+    public com.ectrip.ticket.service.client.ResultBean getseat(java.lang.Long ivenueid) throws java.rmi.RemoteException;
+}
+*/

@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    config:
+      name: ectrip
+      profile: dev
+      discovery:
+        enabled: true
+        serviceId: config-server
+      label: master
+eureka:
+  server:
+    host: 192.168.0.111
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server.host}:8081/eureka  

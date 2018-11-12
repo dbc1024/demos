@@ -1,0 +1,23 @@
+      消费历史
+卡片编号:
+<!--note10-->
+客户编号:
+<!--usid-->
+客户名称:
+<!--lname-->
+现金余额:
+<!--balance-->
+赠送余额:
+<!--balanceType-->
+卡片押金:
+<!--deposit-->
+未结金额:
+<!--uncheckout-->
+
+消费项目|消费金额|消费时间
+---------------------------------
+<!--while1-->
+sztickettypename
+realamont
+timesection
+<!--whileEnd1-->

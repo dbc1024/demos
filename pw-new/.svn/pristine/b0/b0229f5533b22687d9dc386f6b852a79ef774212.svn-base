@@ -1,0 +1,84 @@
+<html>
+  <body>
+    <table width="100%" border="0">
+      <tr>
+      	<th scope="row" height="60" colspan="4"  align="center">
+          <font color="red"  size="16">
+          <!--msg-->
+          </font>
+        </th>
+       </tr>
+       <tr>
+        <th scope="row" height="60" colspan="4" bgcolor="#f7fcff" align="center">
+          <font size="14">
+          <!--cardName-->
+          </font>
+          <font color="red" size="14">
+          <!--status-->
+		  </font>
+        </th>
+      </tr>
+      <tr height="10"></tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+           用户姓名:
+        </th>
+        <td align="left">
+          <!--userName-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          证件号码:
+        </th>
+        <td align="left">
+          <!--userIDCard-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          用户编号:
+        </th>
+        <td align="left">
+          <!--userId-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          卡片编号:
+        </th>
+        <td align="left">
+          <!--cardNo-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          联系电话:
+        </th>
+        <td align="left">
+          <!--tel-->
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          开卡时间:
+        </th>
+        <td align="left">
+          <!--openTime-->
+        </td>
+      </tr>
+      <tr>
+        <th bgcolor="#f7fcff" scope="row" align="right">
+          现金余额:
+        </th>
+        <td align="left">
+        <font color="red">
+        <!--balance-->
+        </font>
+        </td>
+        <th scope="row" bgcolor="#f7fcff" align="right">
+          赠送余额:
+        </th>
+        <td align="left">
+          <font color="red">
+          <!--zsBalance-->
+          </font>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

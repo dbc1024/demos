@@ -1,0 +1,468 @@
+package com.ectrip.base.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author likai
+ * 
+ * @date 2009-3-5
+ */
+public class PaginationSupport {
+	
+
+	/**
+	 * 
+	 * 默认页面显示记录数目
+	 */
+	public static int PAGESIZE = 20;
+
+	public static int FIVESIZE = 5;
+
+	public static int SIXSIZE = 6;
+
+	public static int EIGHTSIZE = 8;
+
+	public static int TENSIZE = 10;
+
+	public static int FIFTEENTHSIZE = 15;
+
+	public static int FIFTYSIZE = 50;
+
+	/**
+	 * 页面实际显示记录数目
+	 */
+	private int pageSize = PAGESIZE;
+
+	/**
+	 * 页面上的索引数
+	 */
+	private int pageIndexCount = 10;
+
+	/**
+	 * 总页数
+	 */
+	private int pageCount;
+
+	/**
+	 * 记录实例集合
+	 */
+	private List items;
+
+	/**
+	 * 总记录数
+	 * 
+	 */
+	private int totalCount;
+
+	/**
+	 * 保存当前索引的记录数
+	 */
+	private int[] indexs = new int[0];
+
+	/**
+	 * 记录起始位
+	 */
+	private int startIndex = 1;
+
+	/**
+	 * 页面连接url
+	 */
+	private String url;
+
+	/**
+	 * 分页字符串
+	 */
+	private String pageHead;
+
+	private String folder;
+	private String filename;
+	private String filetype;
+
+	private String staticPageHead;
+
+	// ========================= 构造函数 =========================
+	/**
+	 * @param items记录实例集合
+	 * @param totalCount总记录数
+	 * @param url页面连接url
+	 */
+	public PaginationSupport(List items, int totalCount, String url) {
+		setPageSize(PAGESIZE);
+		setItems(items);
+		setTotalCount(totalCount);
+		setStartIndex(1);
+		setUrl(url);
+		
+	}
+
+	/**
+	 * @param items记录实例集合
+	 * @param totalCount总记录数
+	 * @param startIndex第几页信息
+	 * @param url页面连接url
+	 */
+	public PaginationSupport(List items, int totalCount, int startIndex, String url) {
+		setPageSize(PAGESIZE);
+		setItems(items);
+		setTotalCount(totalCount);
+		setStartIndex(startIndex);
+		setUrl(url);
+	}
+
+	/**
+	 * 动态分页提供 用的比较多
+	 * 
+	 * @param items记录实例集合
+	 * @param totalCount总记录数
+	 * @param startIndex第几页信息
+	 * @param pageSize每页多少条记录
+	 * @param url页面连接url
+	 */
+	public PaginationSupport(List items, int totalCount, int startIndex, int pageSize, String url) {
+		setPageSize(pageSize);
+		setItems(items);
+		setTotalCount(totalCount);
+		setStartIndex(startIndex);
+		setUrl(url);
+	}
+
+	/**
+	 * 动态分页提供
+	 * 
+	 * @param items记录实例集合
+	 * @param totalCount总记录数
+	 * @param startIndex第几页信息
+	 * @param pageSize每页多少条记录
+	 * @param pageIndexCount页面上的索引数
+	 * @param url页面连接url
+	 */
+	public PaginationSupport(List items, int totalCount, int startIndex, int pageSize, int pageIndexCount, String url) {
+		setPageIndexCount(pageIndexCount);
+		setPageSize(pageSize);
+		setItems(items);
+		setTotalCount(totalCount);
+		setStartIndex(startIndex);
+		setUrl(url);
+	}
+
+	/**
+	 * 静态分页提供
+	 * 
+	 * @param items记录实例集合
+	 * @param totalCount总记录数
+	 * @param startIndex第几页信息
+	 * @param pageSize每页多少条记录
+	 * @param folder文件夹
+	 * @param filename文件名
+	 * @param filetype文件类型
+	 */
+	public PaginationSupport(List items, int totalCount, int startIndex, int pageSize, String folder, String filename,
+			String filetype) {
+		setPageSize(pageSize);
+		setItems(items);
+		setTotalCount(totalCount);
+		setStartIndex(startIndex);
+		setFolder(folder);
+		setFilename(filename);
+		setFiletype(filetype);
+	}
+
+	// 静态分页提供 记录实例集合、总记录数、第几页信息、每页多少条记录、页面上的索引数、文件夹、文件名、文件类型
+	public PaginationSupport(List items, int totalCount, int startIndex, int pageSize, int pageIndexCount,
+			String folder, String filename, String filetype) {
+		setPageIndexCount(pageIndexCount);
+		setPageSize(pageSize);
+		setItems(items);
+		setTotalCount(totalCount);
+		setStartIndex(startIndex);
+		setFolder(folder);
+		setFilename(filename);
+		setFiletype(filetype);
+	}
+
+	// ========================= get set方法 =========================
+
+	public int[] getIndexs() {
+		return indexs;
+	}
+
+	public void setIndexs(int[] indexs) {
+		this.indexs = indexs;
+	}
+
+	public List getItems() {
+		return items;
+	}
+
+	public void setItems(List items) {
+		this.items = items;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		if (startIndex >= this.pageCount)
+			this.startIndex = this.pageCount;
+		else if (startIndex <= 0)
+			this.startIndex = 1;
+		else
+			this.startIndex = startIndex;
+		if (getPageIndexCount() > this.pageCount) {
+			setPageIndexCount(this.pageCount);
+		}
+		indexs = new int[getPageIndexCount()];
+		int istart = this.startIndex - getPageIndexCount() / 2 + (getPageIndexCount() % 2 > 0 ? 0 : 1);
+
+		int iend = this.startIndex + getPageIndexCount() / 2;
+		if (istart <= 0) {
+			istart = 1;
+			iend = getPageIndexCount();
+		}
+		if (iend > this.pageCount) {
+			iend = this.pageCount;
+			istart = this.pageCount - getPageIndexCount() + 1;
+		}
+		for (int i = 0; i < iend - istart + 1; i++) {
+			indexs[i] = istart + i;
+		}
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		if (totalCount > 0) {
+			this.totalCount = totalCount;
+			this.pageCount = totalCount / pageSize + (totalCount % pageSize > 0 ? 1 : 0);
+		} else {
+			this.totalCount = 0;
+		}
+	}
+
+	public int getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	public int getPageIndexCount() {
+		return pageIndexCount;
+	}
+
+	public void setPageIndexCount(int pageIndexCount) {
+		this.pageIndexCount = pageIndexCount;
+	}
+
+	// 下一页
+	public int getNextIndex() {
+		int nextIndex = getStartIndex() + 1;
+		if (nextIndex > pageCount)
+			return pageCount;
+		else
+			return nextIndex;
+	}
+
+	// 上一页
+	public int getPreviousIndex() {
+		int previousIndex = getStartIndex() - 1;
+		if (previousIndex <= 0)
+			return 1;
+		else
+			return previousIndex;
+	}
+
+	// 第一页
+	public int getFirstIndex() {
+		return 1;
+	}
+
+	// 最后一页
+	public int getLastIndex() {
+		return getPageCount();
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getPageHead() {
+		StringBuffer pagehead = new StringBuffer();
+		if (getTotalCount() > getPageSize()) {
+			pagehead.append("<a>共<span class='totalcount'>" + this.totalCount + "</span>条记录</a>");
+			// 首页
+			pagehead.append("<a href='" + this.getUrl() + "&page=1' target='_self'>首页</a>");
+			// 上一页
+			pagehead.append("<a href='" + this.getUrl() + "&page=" + this.getPreviousIndex()
+					+ "' target='_self'>上一页</a>");
+			// 中间循环
+			for (int i = 0; i < this.getIndexs().length; i++) {
+				if (this.startIndex == this.getIndexs()[i]) {
+					pagehead.append("<a class='curpage'>" + this.getIndexs()[i] + "</a>");
+				} else {
+					pagehead.append("<a href='" + this.url + "&page=" + this.getIndexs()[i] + "' target='_self'>"
+							+ this.getIndexs()[i] + "</a>");
+				}
+			}
+			// 下一页
+			pagehead.append("<a href='" + this.url + "&page=" + this.getNextIndex() + "' target='_self'>下一页</a>");
+			// 末页
+			pagehead.append("<a href='" + this.url + "&page=" + this.getLastIndex() + "' target='_self'>末页</a>");
+			// 页数
+			pagehead.append("<a> 页次：<span class='totalpage'><span class='curpage'>" + this.startIndex + "</span>/"
+					+ this.getPageCount() + "</span>页</a>");
+			pagehead.append("<a><span class='numpage'>" + this.pageSize + "</span>条/页</a>");
+		}
+		return pagehead.toString();
+	}
+
+	public void setPageHead(String pageHead) {
+		this.pageHead = pageHead;
+	}
+
+	public String getFolder() {
+		return folder;
+	}
+
+	public void setFolder(String folder) {
+		this.folder = folder;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getFiletype() {
+		return filetype;
+	}
+
+	public void setFiletype(String filetype) {
+		this.filetype = filetype;
+	}
+
+	public String getStaticPageHead() {
+		StringBuffer pagehead = new StringBuffer();
+		if (getTotalCount() > getPageSize()) {
+			pagehead.append("<a>共<span class='totalcount'>" + this.totalCount + "</span>条</a>");
+			// 首页
+			pagehead.append("<a href='" + this.getFolder() + this.getFilename() + this.getFiletype()
+					+ "' target='_self'>首页</a>");
+			// 上一页
+			if (this.startIndex == 1 || this.startIndex == 2) {
+				pagehead.append("<a href='" + this.getFolder() + this.getFilename() + this.getFiletype()
+						+ "' target='_self'>上一页</a>");
+			} else {
+				pagehead.append("<a href='" + this.getFolder() + this.getFilename() + "_" + this.getPreviousIndex()
+						+ this.getFiletype() + "' target='_self'>上一页</a>");
+			}
+			// 中间循环
+			for (int i = 0; i < this.getIndexs().length; i++) {
+				if (this.getIndexs()[i] == 1) {
+					if (this.startIndex == this.getIndexs()[i]) {
+						pagehead.append("<a class='curpage'>" + this.getIndexs()[i] + "</a>");
+					} else {
+						pagehead.append("<a href='" + this.getFolder() + this.getFilename() + this.getFiletype()
+								+ "' target='_self'>" + this.getIndexs()[i] + "</a>");
+					}
+				} else {
+					if (this.startIndex == this.getIndexs()[i]) {
+						pagehead.append("<a class='curpage'>" + this.getIndexs()[i] + "</a>");
+					} else {
+						pagehead.append("<a href='" + this.getFolder() + this.getFilename() + "_" + this.getIndexs()[i]
+								+ this.getFiletype() + "' target='_self'>" + this.getIndexs()[i] + "</a>");
+					}
+				}
+			}
+			// 下一页
+			if (this.startIndex == 1 && this.startIndex == this.getNextIndex()) {
+				pagehead.append("<a href='" + this.getFolder() + this.getFilename() + this.getFiletype()
+						+ "' target='_self'>下一页</a>");
+			} else {
+				pagehead.append("<a href='" + this.getFolder() + this.getFilename() + "_" + this.getNextIndex()
+						+ this.getFiletype() + "' target='_self'>下一页</a>");
+			}
+			// 末页
+			if (this.startIndex == 1 && this.startIndex == this.getLastIndex()) {
+				pagehead.append("<a href='" + this.getFolder() + this.getFilename() + this.getFiletype()
+						+ "' target='_self'>末页</a>");
+			} else {
+				pagehead.append("<a href='" + this.getFolder() + this.getFilename() + "_" + this.getLastIndex()
+						+ this.getFiletype() + "' target='_self'>末页</a>");
+			}
+			// 页数
+			pagehead.append("<a> 页次：<span class='totalpage'><span class='curpage'>" + this.startIndex + "</span>/"
+					+ this.getPageCount() + "</span>页</a>");
+			pagehead.append("<a><span class='numpage'>" + this.pageSize + "</span>条/页</a>");
+		//	pagehead.append("<a href=/DataExcelExport.action?' target='_self'>导出</a>");
+		}
+		return pagehead.toString();
+	}
+
+	public void setStaticPageHead(String staticPageHead) {
+		this.staticPageHead = staticPageHead;
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		List items = new ArrayList();
+		for (int i = 0; i < 10; i++) {
+			items.add("------------->" + i);
+		}
+		int totalCount = 10;
+		int pageSize = 5;
+		int startIndex = 2;
+		int pageIndexCount = 3;
+		// String url = "/likaiindex.action?a=1";
+
+		// PaginationSupport ps = new PaginationSupport(items, totalCount,
+		// startIndex, pageSize, url);
+		// System.out.println(ps.getPageHead());
+
+		String folder = "/likai/hello/";
+		String filename = "index";
+		String filetype = ".html";
+
+		PaginationSupport ps = new PaginationSupport(items, totalCount, startIndex, pageSize, pageIndexCount, folder,
+				filename, filetype);
+		System.out.println(ps.getStaticPageHead());
+
+		// for (int i = 0; i < ps.getItems().size(); i++) {
+		// System.out.println(ps.getItems().get(i));
+		// }
+		// System.out.println("共有" + ps.getTotalCount() + "条记录");
+		// System.out.println("当前第" + ps.getStartIndex() + "页");
+		// System.out.println("共" + ps.getPageCount() + "页");
+		// System.out.println("第一页" + ps.getFirstIndex());
+		// System.out.println("上一页" + ps.getPreviousIndex());
+		// for (int i = 0; i < ps.getIndexs().length; i++) {
+		// System.out.println(ps.getIndexs()[i]);
+		// }
+		// System.out.println("下一页" + ps.getNextIndex());
+		// System.out.println("最后一页" + ps.getLastIndex());
+	}
+
+}

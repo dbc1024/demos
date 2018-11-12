@@ -1,0 +1,35 @@
+## 替换原项目中的ectrip.xml 清除未使用
+ectrip:
+  systemMap:
+      DOMAIN: w1.test.com
+      HQYTJSZX: dev.upaypal.cn
+      DOMAINNAME: 环球雅途易旅宝
+      IMGHOST: http://39.108.104.109:4869 ##图片服务器正式环境图片上传地址，一定要加http：http://img.yilvbao.cn
+      VERSION: P47.1
+      EMAIL: webmaster@yilvbao.cn #发送邮件地址
+      SMTPEMAIL: mail.yilvbao.cn #发送邮件地址的SMTP服务器地址
+      CENTERURL: w1.test.com # 中心服务器地址
+      ISCENTERURL: 0 #是否是中心
+      WWWDOMAIN: www.yilvbao.cn
+      QRCODEMIYUE: FE9F7167CFB5A87 #没有统一，CYT 和 OTO
+      TWOCODEPATH: twoCodePath    #二维码存放地址 存放图片服务器
+      SENDCOUNT: 4 #单个手机短信发送次数
+      CYTSERVICEURL: http://119.147.209.56/services/ectripOTOService?wsdl #分销系统服务器地址
+      CYTHXSERVICEURL: http://119.147.209.56/services/ectripOTOService?wsdl #分销系统核销地址
+      CYTTERMINALURL: http://119.147.209.56/service/terminal-2.do #分销系统终端地址
+      CYTKEY: 12345678 #加密key
+      SUPPORTCYT: 1
+      SUPPORTJPCP: 1
+      SKISALEKEY: 1234
+      DATEKEY: 12345678
+      CLIENTVERSION: 4.0,4,01,4.02
+      PASSWORDCONTROL: 1
+      TPTD: 1
+      CPTD: 1
+      GQTD: 1
+#hqyt.properties文件配置
+hqyt:
+  URL: http://127.0.0.1:8080/service/payService.do #老接口
+  NEWURL: http://127.0.0.1:8081/newService/payService.do #新结算接口访问
+  KEY: HQYTECTRIP1234&!@
+  APP_DOWNLOAD_URL: /appdownload/ylb_v2.1.0.0_2018-02-07_hqytqa.apk

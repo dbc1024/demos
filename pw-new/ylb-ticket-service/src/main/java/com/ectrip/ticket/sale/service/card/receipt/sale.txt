@@ -1,0 +1,24 @@
+       售卡回执
+ 操作人员:
+<!--szemployeename-->
+操作窗口:
+<!--szticketwinname-->
+卡片类型:
+<!--cardName-->
+卡片编号:
+<!--cardNum-->
+客户编号:
+<!--usid-->
+客户名称:
+<!--lname-->
+订单号码:
+<!--orid-->
+支付方式:
+<!--zffsStr-->
+充值金额:
+<!--amount-->
+赠送金额:
+<!--accpointzs-->
+
+办卡时间:
+<!--time-->
