@@ -22,13 +22,48 @@ public class CodeGenerator {
     private static final String Table_Name = "sys_dictionary_type";
     /** 数据库表名前缀 */
     private static final String Table_Prefix = "sys_";
-
     /** 模块名 */
     private static final String Module_Name = "dic";
 
+    /** 生成代码的绝对路径，不包含“/src/main/java” */
+    private static final String Path = "E:/Projects/DBC/clouddemo/user";
+    /** 注释中作者名字 */
+    private static final String Author = "DBC";
+
+
+
+    /** 数据库连接信息 */
+    private static final String Url = "jdbc:mysql://127.0.0.1:3306/dbc_cloud?useUnicode=true&characterEncoding=utf8&useSSL=false";
+    private static final String DriverName = "com.mysql.jdbc.Driver";
+    private static final String Username = "root";
+    private static final String Password = "123456";
+
+
+
+    /** 按模块中分层生成代码时，请配置项目包父路径 */
+    private static final String Parent = "com.dbc.user";
+    
+    /** 按层中分模块生成代码时，请修改下列路径 */
+    private static final String Entity = "com.dbc.user.entity";
+    private static final String Mapper = "com.dbc.user.mapper";
+    private static final String MapperXml = "com.dbc.user.mapper.xml";
+    private static final String Service = "com.dbc.user.service";
+    private static final String ServiceImpl = "com.dbc.user.service.impl";
+    private static final String Controller = "com.dbc.user.controller";
 
 
     public static void main(String[] args) {
+        /**
+         * 生成代码的模式
+         * 0-模块中分层
+         * 1-层中分模块
+         */
+        autoCode(0);
+    }
+
+
+
+    public static void autoCode(int way) {
 
         AutoGenerator mpg = new AutoGenerator();
 
@@ -36,9 +71,8 @@ public class CodeGenerator {
          * 全局配置
          */
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = "E:/Projects/DBC/clouddemo/user";
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("dbc");
+        gc.setOutputDir(Path + "/src/main/java");
+        gc.setAuthor(Author);
         gc.setOpen(false);
         mpg.setGlobalConfig(gc);
 
@@ -46,32 +80,31 @@ public class CodeGenerator {
          * 数据源配置
          */
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/dbc_cloud?useUnicode=true&characterEncoding=utf8&useSSL=false");
+        dsc.setUrl(Url);
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setDriverName(DriverName);
+        dsc.setUsername(Username);
+        dsc.setPassword(Password);
         mpg.setDataSource(dsc);
 
         /**
          * 包配置
          */
+        PackageConfig pc = new PackageConfig();
         //方式一：按模块生成
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(Module_Name);
-        pc.setParent("com.dbc.user");
-
+        if(way == 0){
+            pc.setModuleName(Module_Name);
+            pc.setParent(Parent);
+        }else {
         //方式二：按层生成
-/*
-        PackageConfig pc = new PackageConfig();
-        pc.setParent(null);
-        pc.setEntity("com.dbc.user.model");
-        pc.setMapper("com.dbc.user.mapper");// Dao接口包名
-        pc.setXml("com.dbc.user.mapper.xml");// XML包名
-        pc.setService("com.dbc.user.service");
-        pc.setServiceImpl("com.dbc.user.service.impl");
-        pc.setController("com.dbc.user.controller");
-*/
+            pc.setParent(null);
+            pc.setEntity(Entity);
+            pc.setMapper(Mapper);// Dao接口包名
+            pc.setXml(MapperXml);// XML包名
+            pc.setService(Service);
+            pc.setServiceImpl(ServiceImpl);
+            pc.setController(Controller);
+        }
         mpg.setPackageInfo(pc);
 
         /**
