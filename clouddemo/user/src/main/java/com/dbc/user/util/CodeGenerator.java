@@ -19,9 +19,12 @@ import java.util.Scanner;
 public class CodeGenerator {
 
     /** 数据库表名 */
-    private static final String Table_Name = "dictionary";
+    private static final String Table_Name = "sys_dictionary_type";
+    /** 数据库表名前缀 */
+    private static final String Table_Prefix = "sys_";
+
     /** 模块名 */
-    private static final String Module_Name = "sys";
+    private static final String Module_Name = "dic";
 
 
 
@@ -90,7 +93,7 @@ public class CodeGenerator {
         strategy.setInclude(Table_Name);
         //strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix(Table_Prefix);
         mpg.setStrategy(strategy);
         //需要配置模板引擎，省略不写就是配置velocity，需要在pom中引入对应的maven依赖
         //mpg.setTemplateEngine(new FreemarkerTemplateEngine());
