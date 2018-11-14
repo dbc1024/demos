@@ -18,9 +18,9 @@ import java.util.Scanner;
  */
 public class CodeGenerator {
 
-    /** 数据库表名 */
+    /** 数据库表名，下划线默认转驼峰*/
     private static final String Table_Name = "sys_dictionary_type";
-    /** 数据库表名前缀 */
+    /** 数据库表名前缀,用于生成实体类时去掉对应前缀 */
     private static final String Table_Prefix = "sys_";
     /** 模块名 */
     private static final String Module_Name = "dic";
@@ -42,7 +42,7 @@ public class CodeGenerator {
 
     /** 按模块中分层生成代码时，请配置项目包父路径 */
     private static final String Parent = "com.dbc.user";
-    
+
     /** 按层中分模块生成代码时，请修改下列路径 */
     private static final String Entity = "com.dbc.user.entity";
     private static final String Mapper = "com.dbc.user.mapper";
