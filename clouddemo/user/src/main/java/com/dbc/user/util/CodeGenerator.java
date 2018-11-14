@@ -1,4 +1,4 @@
-package com.dbc.user;
+package com.dbc.user.util;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class CodeGenerator {
 
     /** 数据库表名 */
-    private static final String Table_Name = "morder";
+    private static final String Table_Name = "dictionary";
     /** 模块名 */
     private static final String Module_Name = "sys";
 
@@ -58,8 +58,7 @@ public class CodeGenerator {
         pc.setModuleName(Module_Name);
         pc.setParent("com.dbc.user");
 
-        //方式一：按层生成
-        // 包配置
+        //方式二：按层生成
 /*
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
@@ -70,7 +69,6 @@ public class CodeGenerator {
         pc.setServiceImpl("com.dbc.user.service.impl");
         pc.setController("com.dbc.user.controller");
 */
-
         mpg.setPackageInfo(pc);
 
         /**

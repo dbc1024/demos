@@ -2,4 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dbc.user.sys.mapper.UserMapper">
 
+    <resultMap id="ResultAsMap" type="java.util.HashMap" >
+        <id column="id" property="id" />
+        <result column="address" property="address" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+
+        <result column="status" property="statusName-merchant_status" />
+    </resultMap>
+
+
+    <select id="xmlPage" resultMap="ResultAsMap">
+        select
+        id,
+        address,
+        name,
+        phone
+        from sys_user
+        <where>
+            <if test="status != null">
+                status = #{status}
+            </if>
+            <if test="name != null">
+                and name like '%${name}%'
+            </if>
+            <if test="address != null">
+                and address like '%${address}%'
+            </if>
+        </where>
+
+        <include refid="Common.sortSql"/>
+
+    </select>
 </mapper>

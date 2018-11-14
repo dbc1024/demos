@@ -1,7 +1,7 @@
 package com.dbc.user.sys.mapper;
 
+import com.dbc.user.sys.entity.Dictionary;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dbc.user.sys.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.Map;
  * </p>
  *
  * @author dbc
- * @since 2018-11-12
+ * @since 2018-11-14
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface DictionaryMapper extends BaseMapper<Dictionary> {
 
-    List<Map<String, String>> xmlPage(Map<String, String> params);
+    List<Map<String, String>> getKeyValueListByCode(String code);
 
 }
