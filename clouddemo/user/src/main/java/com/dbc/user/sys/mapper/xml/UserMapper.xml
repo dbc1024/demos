@@ -6,9 +6,10 @@
         <id column="id" property="id" />
         <result column="address" property="address" />
         <result column="name" property="name" />
+        <result column="sex" property="sex" />
         <result column="phone" property="phone" />
 
-        <result column="status" property="statusName-merchant_status" />
+        <result column="sex" property="sexName-sex" />
     </resultMap>
 
 
@@ -17,6 +18,7 @@
         id,
         address,
         name,
+        sex,
         phone
         from sys_user
         <where>

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dbc.user.controller.BaseController;
 import com.dbc.user.sys.entity.User;
 import com.dbc.user.sys.service.IUserService;
+import com.dbc.user.util.DictionaryUtil;
 import com.dbc.user.util.PageUtil;
 import com.dbc.user.util.Result;
 import com.github.pagehelper.Page;
@@ -30,14 +31,49 @@ public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
+
+
     @GetMapping("/detail/{id}")
     public Result detail(@PathVariable Integer id){
 
         User user = userService.getById(id);
-        dicKeyValueHandle(user);
+        DictionaryUtil.keyValueHandle(user);
 
         return Result.success(user);
     }
+
+
+    /**
+     * MybatisPlus原生分页方法
+     * @param params
+     * @return
+     */
+    @PostMapping("/page")
+    public Result page(@RequestBody Map<String, String> params){
+
+        IPage<User> userList = userService.page(prePagePlus(params), condition(params));
+        DictionaryUtil.keyValueHandle(userList);
+        PageUtil pageResult = PageUtil.result(userList);
+
+        return Result.success(pageResult);
+    }
+
+
+    /**
+     * xml中写sql的方式
+     * @param params
+     * @return
+     */
+    @PostMapping("/xmlPage")
+    public Result xmlPage(@RequestBody Map<String, String> params){
+
+        Page<Object> page = prePage(params);
+        userService.xmlPage(params);
+        PageUtil pageResult = PageUtil.result(page);
+
+        return Result.success(pageResult);
+    }
+
 
     /**
      * 原生map封装结果集中不会有非数据库字段
@@ -56,20 +92,7 @@ public class UserController extends BaseController {
     }
 
 
-    /**
-     * MybatisPlus原生分页方法
-     * @param params
-     * @return
-     */
-    @PostMapping("/page")
-    public Result page(@RequestBody Map<String, String> params){
 
-        IPage<User> userList = userService.page(prePagePlus(params), condition(params));
-        dicKeyValueHandle(userList);
-        PageUtil pageResult = PageUtil.result(userList);
-
-        return Result.success(pageResult);
-    }
 
 
     /**
@@ -100,21 +123,6 @@ public class UserController extends BaseController {
         return Result.success(pageResult);
     }
 
-
-    /**
-     * xml中写sql的方式
-     * @param params
-     * @return
-     */
-    @PostMapping("/xmlPage")
-    public Result xmlPage(@RequestBody Map<String, String> params){
-
-        Page<Object> page = prePage(params);
-        userService.xmlPage(params);
-        PageUtil pageResult = PageUtil.result(page);
-
-        return Result.success(pageResult);
-    }
 
 
     /**

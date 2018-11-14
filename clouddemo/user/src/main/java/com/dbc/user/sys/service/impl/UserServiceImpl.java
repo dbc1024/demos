@@ -7,6 +7,7 @@ import com.dbc.user.sys.entity.User;
 import com.dbc.user.sys.mapper.UserMapper;
 import com.dbc.user.sys.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dbc.user.util.DictionaryUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public List<Map<String, String>> xmlPage(Map<String, String> params) {
 
         List<Map<String, String>> userList = userMapper.xmlPage(params);
+        DictionaryUtil.keyValueHandle(userList);
 
         return userList;
     }
