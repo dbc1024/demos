@@ -12,5 +12,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DictionaryCode {
 
-    public String value() default "";
+    String value() default "";
 }

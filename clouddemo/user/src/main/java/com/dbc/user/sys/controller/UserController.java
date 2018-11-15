@@ -74,6 +74,33 @@ public class UserController extends BaseController {
         return Result.success(pageResult);
     }
 
+    @PostMapping("/save")
+    public Result save(@RequestBody User user){
+
+        userService.save(user);
+
+        return Result.success();
+    }
+
+    @PostMapping("/updateById")
+    public Result updateById(@RequestBody User user){
+
+        //只更新已传字段
+        userService.updateById(user);
+
+        return Result.success();
+    }
+
+    @GetMapping("/delete/{id}")
+    public Result delete(@PathVariable Long id){
+
+        userService.removeById(id);
+
+        return Result.success();
+    }
+
+
+
 
     /**
      * 原生map封装结果集中不会有非数据库字段
@@ -135,10 +162,10 @@ public class UserController extends BaseController {
         String name = params.get("name");
         String address = params.get("address");
         if(StringUtils.isNotBlank(name)){
-            wrapper.like(User::getName, params.get("name"));
+            wrapper.like(User::getName, name);
         }
         if(StringUtils.isNotBlank(address)){
-            wrapper.like(User::getAddress, params.get("address"));
+            wrapper.like(User::getAddress, address);
         }
 
         return wrapper;

@@ -1,11 +1,13 @@
 package com.dbc.user.util;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.apache.commons.lang.StringUtils;
 
@@ -19,11 +21,10 @@ import java.util.Scanner;
 public class CodeGenerator {
 
     /** 数据库表名，下划线默认转驼峰*/
-    private static final String Table_Name = "sys_dictionary_type";
+    private static final String Table_Name = "dictionarytype";
     /** 数据库表名前缀,用于生成实体类时去掉对应前缀 */
     private static final String Table_Prefix = "sys_";
-    /** 模块名 */
-    private static final String Module_Name = "dic";
+
 
     /** 生成代码的绝对路径，不包含“/src/main/java” */
     private static final String Path = "E:/Projects/DBC/clouddemo/user";
@@ -42,9 +43,13 @@ public class CodeGenerator {
 
     /** 按模块中分层生成代码时，请配置项目包父路径 */
     private static final String Parent = "com.dbc.user";
+    /** 模块名 */
+    private static final String Module_Name = "dic";
+
+
 
     /** 按层中分模块生成代码时，请修改下列路径 */
-    private static final String Entity = "com.dbc.user.entity";
+    private static final String Entity = "com.dbc.user.model";
     private static final String Mapper = "com.dbc.user.mapper";
     private static final String MapperXml = "com.dbc.user.mapper.xml";
     private static final String Service = "com.dbc.user.service";
@@ -74,6 +79,7 @@ public class CodeGenerator {
         gc.setOutputDir(Path + "/src/main/java");
         gc.setAuthor(Author);
         gc.setOpen(false);
+//        gc.setIdType(IdType.AUTO);//mysql自动递增
         mpg.setGlobalConfig(gc);
 
         /**
