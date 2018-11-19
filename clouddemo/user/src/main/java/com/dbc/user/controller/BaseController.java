@@ -43,10 +43,10 @@ public class BaseController {
                 .Page(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
 
         if(sortName == null){
-            page.setAsc("id");
+            page.setDesc("id");
         }else {
             sortName = camelToUnderline(sortName);
-            if(sortType == null || "asc".equals(sortType)){
+            if("asc".equals(sortType)){
                 page.setAsc(sortName);
             }else {
                 page.setDesc(sortName);
