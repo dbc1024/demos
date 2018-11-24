@@ -24,10 +24,10 @@ public class DateTest {
 	@Test
 	public void getDateAfterOneDay() {
 		
-		Calendar cal = Calendar.getInstance();//Ê¹ÓÃÄ¬ÈÏÊ±ÇøºÍÓïÑÔ»·¾³»ñµÃÒ»¸öÈÕÀú¡£    
-		cal.add(Calendar.YEAR, 1);//Äê¼Ó¼õ   
-		cal.add(Calendar.MONTH, -1);//ÔÂ¼Ó¼õ
-		cal.add(Calendar.DAY_OF_MONTH, 1);//ÈÕ¼Ó¼õ
+		Calendar cal = Calendar.getInstance();//Ê¹ï¿½ï¿½Ä¬ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
+		cal.add(Calendar.YEAR, 1);//ï¿½ï¿½Ó¼ï¿½   
+		cal.add(Calendar.MONTH, -1);//ï¿½Â¼Ó¼ï¿½
+		cal.add(Calendar.DAY_OF_MONTH, 1);//ï¿½Õ¼Ó¼ï¿½
 		
 		Date time = cal.getTime();
 		System.out.println(time);
@@ -114,14 +114,14 @@ public class DateTest {
 	public void ticketData() {
 		Map<Object, Object> data = new HashMap();
 		
-		//1.»ñÈ¡¾°ÇøÓªÒµÊ±¼ä
-		//2.¸ù¾ÝÏµÍ³µ±Ç°Ê±¼äÒÔ°ëÐ¡Ê±Îªµ¥Î»¼ÆËãÐèÒª½øÐÐÍ³¼ÆµÄÊ±¶Î
-		//3.¸ù¾ÝÆ±ÖÖ×é×°¸÷Ê±¼ä¶ÎµÄÊý¾Ý
+		//1.ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ÓªÒµÊ±ï¿½ï¿½
+		//2.ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½Ô°ï¿½Ð¡Ê±Îªï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í³ï¿½Æµï¿½Ê±ï¿½ï¿½
+		//3.ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Ê±ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		
 		
-		//1.»ñÈ¡¾°ÇøÓªÒµÊ±¼ä
-		String businesshours = "8:00-18:00";	//Ä£ÄâÊý¾Ý
+		//1.ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ÓªÒµÊ±ï¿½ï¿½
+		String businesshours = "8:00-18:00";	//Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String[] split = businesshours.split("-");
 		String string_startTime = split[0];
 		String string_endTime = split[1];
@@ -130,7 +130,7 @@ public class DateTest {
 		
 		SimpleDateFormat format;
 		
-		//ÅÐ¶ÏÊ±¼ä¸ñÊ½ÊÇ·ñÕýÈ·
+		//ï¿½Ð¶ï¿½Ê±ï¿½ï¿½ï¿½Ê½ï¿½Ç·ï¿½ï¿½ï¿½È·
 		format= new SimpleDateFormat("HH:mm");
 		format.setLenient(false);
 		try {
@@ -138,7 +138,7 @@ public class DateTest {
 			format.parse(string_startTime);
 		} catch (ParseException e) {
 			
-			data.put("error", "¾°ÇøÓªÒµÊ±¼ä¸ñÊ½ÓÐÎó£¬Ó¦Èç8:00-18:00");
+			data.put("error", "ï¿½ï¿½ï¿½ï¿½ÓªÒµÊ±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½8:00-18:00");
 		}
 		
 		
@@ -151,15 +151,15 @@ public class DateTest {
 		String string_full_tempAddTime = getHalfHourLater(string_full_tempStartTime);
 	        
 		
-		//Èç¹û¼Ó³öÀ´µÄ½áÊøÊ±¼äÐ¡ÓÚµ±Ç°Ê±¼ä£¬¾Í¼ÌÐø²éÑ¯
+		//ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ð¡ï¿½Úµï¿½Ç°Ê±ï¿½ä£¬ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯
 		while(isBeforeNow(string_full_tempAddTime)){
 			
-			//a.²é³öÕâ¸öÊ±¶ÎµÄÊý¾Ý
+			//a.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½
 			//saleService.getSaleData(string_full_tempStartTime,string_full_tempAddTime);
 			
-			//b.È¡³öÊý¾Ý½øÐÐ·â×°
+			//b.È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Ð·ï¿½×°
 			
-			//c.ÀÛ¼ÓÊ±¼ä¶Î
+			//c.ï¿½Û¼ï¿½Ê±ï¿½ï¿½ï¿½
 			string_full_tempStartTime = string_full_tempAddTime;
 			string_full_tempAddTime = getHalfHourLater(string_full_tempStartTime);
 		}
@@ -223,11 +223,11 @@ public class DateTest {
 //		
 //		
 //		if(start.before(end)){ 
-//			System.err.println("¿ªÊ¼Ê±¼äÐ¡ÓÚ½áÊøÊ±¼ä"); 
+//			System.err.println("ï¿½ï¿½Ê¼Ê±ï¿½ï¿½Ð¡ï¿½Ú½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½"); 
 //		}else if(start.after(end)){ 
-//			System.err.println("¿ªÊ¼Ê±¼ä´óÓÚ½áÊøÊ±¼ä"); 
+//			System.err.println("ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½"); 
 //		}else if(start.equals(end)){ 
-//			System.err.println("¿ªÊ¼Ê±¼äµÈÓÚ½áÊøÊ±¼ä"); 
+//			System.err.println("ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½"); 
 //		}
 		
 		Calendar openDate = Calendar.getInstance(); 
@@ -240,6 +240,17 @@ public class DateTest {
 		}
 		
 	}
-	
-	
+
+
+
+	@Test
+	public void strDateCompare() {
+		String dateString1 = "2017-02-28";
+		String dateString2 = "2017-02-28";
+
+        int i = dateString1.compareTo(dateString2);
+
+        System.out.println(i);
+    }
+
 }

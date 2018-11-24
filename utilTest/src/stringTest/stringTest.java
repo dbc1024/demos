@@ -18,8 +18,24 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import sun.awt.geom.AreaOp;
 
 public class stringTest {
+
+	@Test
+	public void splitTest111() {
+		String str = ",1,2,3,4,";
+		String[] split = str.split(",");
+		System.out.println(split.length);
+		for (String s : split) {
+			System.out.println(s);
+		}
+
+		str = str.substring(1,str.length()-1);
+		System.out.println(str);
+
+	}
+
 
 	@Test
 	public void stringIsNumber() {

@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.apache.commons.lang.StringUtils;
 
@@ -21,7 +20,7 @@ import java.util.Scanner;
 public class CodeGenerator {
 
     /** 数据库表名，下划线默认转驼峰*/
-    private static final String Table_Name = "student";
+    private static final String Table_Name = "SEQ_BAS_BUSINESS_TYPE";
     /** 数据库表名前缀,用于生成实体类时去掉对应前缀 */
     private static final String Table_Prefix = "sys_";
 
@@ -34,10 +33,15 @@ public class CodeGenerator {
 
 
     /** 数据库连接信息 */
-    private static final String Url = "jdbc:mysql://127.0.0.1:3306/dbc_cloud?useUnicode=true&characterEncoding=utf8&useSSL=false";
-    private static final String DriverName = "com.mysql.jdbc.Driver";
-    private static final String Username = "root";
-    private static final String Password = "123456";
+//    private static final String Url = "jdbc:mysql://127.0.0.1:3306/dbc_cloud?useUnicode=true&characterEncoding=utf8&useSSL=false";
+//    private static final String DriverName = "com.mysql.jdbc.Driver";
+//    private static final String Username = "root";
+//    private static final String Password = "123456";
+
+    private static final String Url = "jdbc:oracle:thin:@//192.168.20.1:1521/mobopay";
+    private static final String DriverName = "oracle.jdbc.OracleDriver";
+    private static final String Username = "MOBAO_PAYMENT";
+    private static final String Password = "mobao360#2";
 
 
 
@@ -80,6 +84,7 @@ public class CodeGenerator {
         gc.setAuthor(Author);
         gc.setOpen(false);
 //        gc.setIdType(IdType.AUTO);//mysql自动递增
+        gc.setIdType(IdType.INPUT);//oracle使用序列
         mpg.setGlobalConfig(gc);
 
         /**
