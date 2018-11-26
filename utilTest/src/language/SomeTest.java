@@ -8,6 +8,14 @@ import org.junit.Test;
 public class SomeTest {
 
 	@Test
+	public void testEquals() {
+		Long num1 = new Long(666666L);
+		Long num2 = new Long(666666L);
+
+		System.out.println(num1.equals(num2));
+	}
+
+	@Test
 	public void testForeach() {
 		
 		String[] numArr = {"0","00","000","0000","00000"};
@@ -73,7 +81,7 @@ public class SomeTest {
 	}
 	
 	
-	//结论：可以无限循环加大list的size，不会报错
+	//锟斤拷锟桔ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷循锟斤拷锟接达拷list锟斤拷size锟斤拷锟斤拷锟结报锟斤拷
 	@Test
 	public void testListAdd() {
 		List<String> strs = new ArrayList<>();
@@ -92,7 +100,7 @@ public class SomeTest {
 	}
 	
 	
-	//结论：foreeach过程中不能改变list的大小
+	//锟斤拷锟桔ｏ拷foreeach锟斤拷锟斤拷锟叫诧拷锟杰改憋拷list锟侥达拷小
 	@Test
 	public void testListAdd1() {
 		List<String> strs = new ArrayList<>();
@@ -116,7 +124,7 @@ public class SomeTest {
 		
 	}
 	
-	//结论：for循环的过程中可以改变list的size，不会报错，但很容易出逻辑错误
+	//锟斤拷锟桔ｏ拷for循锟斤拷锟侥癸拷锟斤拷锟叫匡拷锟皆改憋拷list锟斤拷size锟斤拷锟斤拷锟结报锟斤拷锟斤拷锟斤拷锟斤拷锟阶筹拷锟竭硷拷锟斤拷锟斤拷
 	@Test
 	public void testListRemove() {
 		List<String> strs = new ArrayList<>();

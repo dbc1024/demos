@@ -12,6 +12,34 @@ import org.junit.Test;
 public class DateTest {
 
 	@Test
+	public void getWeekOfDate() {
+
+		String dateStr = "2018-11-25";
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date  = null;
+		//这里会有一个异常，所以要用try catch捕获异常
+		try {
+			date  = dateFormat.parse(dateStr);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+
+		SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+		String currSun = dateFm.format(date);
+		System.out.println(currSun);
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		long whichDay1 = cal.get(Calendar.DAY_OF_WEEK);
+		System.out.println(whichDay1);
+
+
+	}
+
+	@Test
 	public void getNow() {
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
