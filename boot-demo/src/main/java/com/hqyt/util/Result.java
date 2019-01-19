@@ -1,5 +1,7 @@
 package com.hqyt.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 /**
@@ -78,4 +80,19 @@ public class Result<T> {
         return result;
     }
 
+
+    /**
+     * 服务间传输对象时
+     * 可以在接口中指明泛型的具体类型
+     * 也可以不指明，用此方法得到对应的实体bean
+     * 建议使用前者(在接口中指明泛型的具体类型)
+     * @param clazz
+     * @return
+     */
+    public T getDataBean(Class clazz){
+
+        T dataBean = (T) JSONObject.parseObject(JSON.toJSONString(getData()), clazz);
+
+        return dataBean;
+    }
 }

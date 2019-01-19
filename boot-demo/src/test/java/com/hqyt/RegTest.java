@@ -12,7 +12,7 @@ public class RegTest {
     @Test
     public void IDTest(){
 
-        String id = "511521199203071919";
+        String id = "511521199503071919";
 
         System.out.println(IdcardUtil.isValidCard(id));
 
