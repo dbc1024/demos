@@ -12,13 +12,12 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
   instance:
-      status-page-url: http://localhost/swagger-ui.html
+    status-page-url: http://localhost/swagger-ui.html
 zuul:
   routes:
     user:
       path: /user/**
     order:
       path: /order/**
-#  ignored-patterns: /**/api-docs/** #ºöÂÔÄ³Ğ©url£¬ÈÃÆä404
-
+#  ignored-patterns: /**/api-docs/** #å¿½ç•¥æŸäº›urlï¼Œè®©å…¶404
 
