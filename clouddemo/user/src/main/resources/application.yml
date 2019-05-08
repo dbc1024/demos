@@ -19,9 +19,17 @@ eureka:
     serviceUrl:
           defaultZone: http://localhost:8761/eureka/
   instance:
-    status-page-url: http://localhost/swagger-ui.html
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    status-page-url: http://localhost:${server.port}/swagger-ui.html
 
 
 mybatis-plus:
   #读取mapper的xml配置
   mapper-locations: classpath:**/*.xml
+
+#Swagger-ui 密码配置
+spring.security.basic.path: /swagger-ui.html
+spring.security.basic.enabled: true
+spring.security.user.name: admin
+spring.security.user.password: 123456
